@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Gladiators GBP</string>
+   <string>Invincible Library</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="assets/resources.qrc">
+    <normaloff>:/main/mainLogo.png</normaloff>:/main/mainLogo.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="background">
@@ -43,6 +47,8 @@
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="assets/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MyInvincibleLibrary.iml" filepath="$PROJECT_DIR$/.idea/MyInvincibleLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MyInvincibleLibrary.iml" filepath="$PROJECT_DIR$/MyInvincibleLibrary.iml" />
     </modules>
   </component>
 </project>
