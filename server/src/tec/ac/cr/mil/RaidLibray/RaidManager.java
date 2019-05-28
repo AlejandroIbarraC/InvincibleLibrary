@@ -40,7 +40,10 @@ public class RaidManager {
         int counter = 0;
 
         while (counter < totalPartitions){
-            Path path = Paths.get(".\\server\\src\\tec\\ac\\cr\\mil\\RaidLibray\\Disks\\d"+currentDisk+"\\"+Name+counter+".pdf");
+            Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+
+                    File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
+                    +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
+                    "Disks"+File.separator+"d"+currentDisk+File.separator+Name+counter+".pdf");
             try {
                 byte[] bArray = Files.readAllBytes(path);
                 System.arraycopy(bArray, 0, FileBytes, (10000 * counter), bArray.length);
@@ -60,7 +63,10 @@ public class RaidManager {
 
 
     private static void fillFile(byte[] byteFiles, int index, String fileName, int currentDisk){
-        File file = new File(".\\server\\src\\tec\\ac\\cr\\mil\\RaidLibray\\Disks\\d"+currentDisk+"\\"+fileName+index+".pdf");
+        File file = new File("."+File.separator+"server"+File.separator+
+                "src"+File.separator+"tec"+File.separator+"ac+File.pathSeparator"+File.separator+
+                "cr"+File.separator+"mil"+File.separator+"RaidLibray"+File.separator+"Disks"+File.separator+
+                "d"+currentDisk+File.separator+fileName+index+".pdf");
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(byteFiles);
         }
