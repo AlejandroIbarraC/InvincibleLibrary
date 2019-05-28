@@ -17,8 +17,8 @@ public class main {
         byte [] data = bos.toByteArray();
    //     RaidManager.Write(data,"prueba");
         byte[] response = RaidManager.Read(data.length, "prueba");
-        System.out.println(data[92085]);
-        System.out.println(response[92085]);
+        System.out.println(data[90085]);
+        System.out.println(response[90085]);
     }
 
 }
