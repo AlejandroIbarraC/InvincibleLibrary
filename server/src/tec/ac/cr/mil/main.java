@@ -13,9 +13,12 @@ public class main {
     public static void main(String[] args) throws IOException {
         BufferedImage bImage = ImageIO.read(new File("C:\\Users\\ramir\\Pictures\\prueba.jpeg"));
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(bImage, "jpeg", bos );
+        ImageIO.write(bImage, "jpeg", bos);
         byte [] data = bos.toByteArray();
-        RaidManager.Write(data,"prueba");
+   //     RaidManager.Write(data,"prueba");
+        byte[] response = RaidManager.Read(data.length, "prueba");
+        System.out.println(data[92085]);
+        System.out.println(response[92085]);
     }
 
 }

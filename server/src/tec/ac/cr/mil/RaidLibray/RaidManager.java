@@ -2,6 +2,9 @@ package tec.ac.cr.mil.RaidLibray;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class RaidManager {
@@ -30,17 +33,33 @@ public class RaidManager {
 
 
     }
-    public static byte[] Read(int size){
+    public static byte[] Read(int size, String Name){
         byte[] FileBytes = new byte[size];
+        int currentDisk = 0;
+        int totalPartitions = size/10000;
+        int counter = 0;
 
+        while (counter < totalPartitions){
+            Path path = Paths.get("C:\\Users\\ramir\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\RaidLibray\\Disks\\d"+currentDisk+"\\"+Name+counter+".pdf");
+            try {
+                byte[] bArray = Files.readAllBytes(path);
+                System.arraycopy(bArray, 0, FileBytes, (10000 * counter), bArray.length);
+                // reading content from byte array
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            counter++;
+            currentDisk++;
+            if(currentDisk==5) currentDisk=0;
+        }
         return FileBytes;
     }
+
     public static void Seek(){
     }
 
 
-    private static void fillFile(byte[] byteFiles, int index, String fileName, int currentDisk) throws IOException {
-        createFile(index, fileName, currentDisk);
+    private static void fillFile(byte[] byteFiles, int index, String fileName, int currentDisk){
         File file = new File("C:\\Users\\ramir\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\RaidLibray\\Disks\\d"+currentDisk+"\\"+fileName+index+".pdf");
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(byteFiles);
@@ -50,16 +69,5 @@ public class RaidManager {
             ex.printStackTrace();
         }
     }
-    private static void createFile(int index, String fileName, int currentDisk) throws IOException {
-        String path ="C:"+File.pathSeparator+"Users"+File.pathSeparator+"ramir"+File.pathSeparator+"" +
-                "IdeaProjects"+File.pathSeparator+"MyInvincibleLibrary"+File.pathSeparator+"server" +
-                "src"+File.pathSeparator+"tec"+File.pathSeparator+"ac"+File.pathSeparator+"cr" +
-                "mil"+File.pathSeparator+"RaidLibray"+File.pathSeparator+"Disks"+File.pathSeparator+"d"+currentDisk+
-                File.pathSeparator+fileName+index+".pdf";
-        // Use relative path for Unix systems
-        File f = new File(path);
 
-        f.getParentFile().mkdirs();
-        f.createNewFile();
-    }
 }
