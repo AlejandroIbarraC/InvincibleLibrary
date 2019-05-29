@@ -1,8 +1,7 @@
 <RCC>
-    <qresource prefix="/main">
+    <qresource prefix="/main/default">
         <file>logoName.png</file>
         <file>mainLogo.png</file>
-        <file>backButton.png</file>
     </qresource>
     <qresource prefix="/font">
         <file>font/SF-Pro-Display-Black.otf</file>
@@ -35,5 +34,14 @@
         <file>font/SF-Pro-Text-RegularItalic.otf</file>
         <file>font/SF-Pro-Text-Semibold.otf</file>
         <file>font/SF-Pro-Text-SemiboldItalic.otf</file>
+    </qresource>
+    <qresource prefix="/main/buttons">
+        <file>buttons/addButton.png</file>
+        <file>buttons/addButton_hovered.png</file>
+        <file>buttons/backButton.png</file>
+        <file>buttons/editButton.png</file>
+        <file>buttons/editButton_hovered.png</file>
+        <file>buttons/trashButton.png</file>
+        <file>buttons/trashButton_hovered.png</file>
     </qresource>
 </RCC>
