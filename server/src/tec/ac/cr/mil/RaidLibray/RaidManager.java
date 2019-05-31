@@ -17,7 +17,7 @@ public class RaidManager {
         int fileCounter = 0;
         int fileTotal = length/fileSize;
         int currentDisk = 0;
-        while (fileCounter < fileTotal){
+        while (fileCounter < fileTotal+1){
             if(currentDisk != parityPosition) {
                 int begin = fileCounter * fileSize;
                 int end = (fileCounter + 1) * fileSize;
@@ -29,11 +29,11 @@ public class RaidManager {
 
                 fillFile(partition, fileCounter, ImageName, currentDisk);
 
-                fileCounter++;
 
                 if (currentDisk == 5) currentDisk = 0;
             }
             currentDisk++;
+            fileCounter++;
         }
         if(parityPosition == 5) parityPosition = 0;
         calcParity(fileSize, ImageName, parityPosition);
