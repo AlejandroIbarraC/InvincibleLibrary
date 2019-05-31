@@ -106,16 +106,18 @@ public class RaidManager {
     private static byte[] calcByteArrayParity(int size, String fileName, int disk){
         byte[] Response = new byte[size];
         byte[][] BytesMatrix = calcByteMatrix(size, fileName, disk);
+        System.out.println(BytesMatrix[2][107]);
         int i = 0;
         int y = 0;
-        byte sum = 0;
+        int sum = 0;
         while(i<size){
-            while (y<5 && y!=parityPosition){
-                sum += (byte) + BytesMatrix[y][i];
+            while (y<4 && y!=parityPosition){
+                sum = sum + BytesMatrix[y][i];
                 y++;
             }
-            Response[i] = sum;
-            y=0;
+            Response[i] = (byte)sum;
+            y++;
+            if(y==5)y=0;
             i++;
         }
 
@@ -127,21 +129,23 @@ public class RaidManager {
     private static byte[][] calcByteMatrix (int size, String fileName, int disk){
         byte[][] Response = new byte[4][size];
         int counter = 0;
-        while (counter<5 && counter!= parityPosition){
+        if(counter == parityPosition)counter++;
+        int index = 0;
+        while (counter<4 && counter!= parityPosition){
             Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+
                     File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
                     +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
                     "Disks"+File.separator+"d"+counter+File.separator+fileName+counter+".pdf");
             try {
                 byte[] bArray = Files.readAllBytes(path);
-                Response[counter]=bArray;
+                Response[index]=bArray;
+                index++;
                 // reading content from byte array
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             counter++;
+
         }
         return Response;
     }
