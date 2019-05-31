@@ -12,6 +12,7 @@ public class RaidManager {
     private static int parityPosition = 0;
 
     public static void Write(byte[] ImageBytes, String ImageName) throws IOException {
+        checkDisks();
         int length = ImageBytes.length;
         int fileSize = length/4;
         int fileCounter = 0;
@@ -40,7 +41,9 @@ public class RaidManager {
         parityPosition++;
 
     }
+
     public static byte[] Read(int size, String Name){
+        checkDisks();
         byte[] FileBytes = new byte[size];
         int stripSize = size/5;
         int currentDisk = 0;
@@ -66,9 +69,9 @@ public class RaidManager {
         return FileBytes;
     }
 
-    public static void Seek(){
+    public static void Seek() {
+        checkDisks();
     }
-
 
     private static void fillFile(byte[] byteFiles, int index, String fileName, int currentDisk){
         File file = new File("."+File.separator+"server"+File.separator+
@@ -142,4 +145,27 @@ public class RaidManager {
         }
         return Response;
     }
+
+    private static void checkDisks(){
+        int currentDisk = 0;
+        Path path;
+
+        while (currentDisk < 5){
+            path = Paths.get("."+File.separator+"server"+File.separator+"src"+
+                    File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
+                    +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
+                    "Disks"+File.separator+"d"+currentDisk+File.separator+"sec.pdf");
+                currentDisk++;
+            try {
+                Files.readAllBytes(path);
+            } catch (IOException e) {
+                System.out.println("Needs Recovery");
+                Recovery(currentDisk);
+            }
+        }
+    }
+    private static void Recovery(int diskToRecover){
+
+    }
+
 }
