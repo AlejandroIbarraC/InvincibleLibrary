@@ -2,6 +2,8 @@
     <qresource prefix="/main/default">
         <file>logoName.png</file>
         <file>mainLogo.png</file>
+        <file>dropIcon.png</file>
+        <file>greyBackground.png</file>
     </qresource>
     <qresource prefix="/font">
         <file>font/SF-Pro-Display-Black.otf</file>
@@ -43,5 +45,7 @@
         <file>buttons/editButton_hovered.png</file>
         <file>buttons/trashButton.png</file>
         <file>buttons/trashButton_hovered.png</file>
+        <file>buttons/enterButton.png</file>
+        <file>buttons/enterButton_hovered.png</file>
     </qresource>
 </RCC>
