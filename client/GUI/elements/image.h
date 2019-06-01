@@ -4,16 +4,21 @@
 #include <QGraphicsRectItem>
 
 
-class Image : public QGraphicsRectItem {
+class Image : public QObject, public QGraphicsRectItem {
+    Q_OBJECT
+    Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry)
 
 public:
-    Image(QGraphicsRectItem* parent = nullptr);
+    Image(QObject* parent = nullptr);
+    QRectF boundingRect() const;
+    QRect geometry() const;
+    void setGeometry(const QRect &value);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
-
+    QRect rect;
 
 };
 

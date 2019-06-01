@@ -14,8 +14,8 @@
    <string>Invincible Library</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/main/mainLogo.png</normaloff>:/main/mainLogo.png</iconset>
+   <iconset resource="assets/resources.qrc">
+    <normaloff>:/main/default/mainLogo.png</normaloff>:/main/default/mainLogo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: white</string>
@@ -225,8 +225,8 @@
      <rect>
       <x>140</x>
       <y>110</y>
-      <width>851</width>
-      <height>451</height>
+      <width>850</width>
+      <height>450</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -237,14 +237,14 @@
     </property>
     <property name="minimumSize">
      <size>
-      <width>851</width>
-      <height>0</height>
+      <width>850</width>
+      <height>450</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>851</width>
-      <height>16777215</height>
+      <width>850</width>
+      <height>10000</height>
      </size>
     </property>
     <property name="styleSheet">
@@ -252,6 +252,9 @@
     </property>
     <property name="lineWidth">
      <number>1</number>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>

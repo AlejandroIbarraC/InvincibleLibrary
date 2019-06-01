@@ -13,11 +13,11 @@ Menu::Menu(QWidget *parent) :
     ui->copyBackground->setVisible(false);
     ui->dropIcon->setVisible(false);
     ui->dropLabel->setVisible(false);
-    ui->imageView->setFixedWidth(851);
+    imageList = new QList<Image*>();
 
     // Set scene
     scene = new QGraphicsScene(this);
-    scene->setSceneRect(0, 0, 1000, 800);
+    scene->setSceneRect(0, 0, 850, 450);
     ui->imageView->setScene(scene);
 
     // Bring initial elements to front
@@ -31,10 +31,16 @@ Menu::Menu(QWidget *parent) :
     ui->addButton->installEventFilter(addWatcher);
     ui->enterButton->installEventFilter(enterWatcher);
 
-    // Background deletion timer
+    // Animation timers
     deletionTimer = new QTimer(this);
     deletionTimer->setInterval(1000);
     connect(deletionTimer, SIGNAL(timeout()), this, SLOT(deleteBackground()));
+    floatTimer = new QTimer(this);
+    floatTimer->setInterval(1000);
+    connect(floatTimer, SIGNAL(timeout()), this, SLOT(floatImages()));
+    updateTimer = new QTimer(this);
+    updateTimer->setInterval(10);
+    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateUI()));
 }
 
 Menu::~Menu()
@@ -57,6 +63,8 @@ void Menu::deleteBackground() {
     fadeOut->setStartValue(0);
     fadeOut->setEndValue(1);
     fadeOut->start(QPropertyAnimation::DeleteWhenStopped);
+
+    //floatTimer->start();
 }
 
 //! Executes while dragging file to window
@@ -109,6 +117,30 @@ void Menu::dropEvent(QDropEvent* e) {
     }
 }
 
+//! Makes images float in sets, time it for better results.
+void Menu::floatImages(){
+    QParallelAnimationGroup* set = new QParallelAnimationGroup();
+    updateTimer->start();
+    QSize defaultImgSize = QSize(208, 117);
+    for (int i = 0; i < 3; i++) {
+        // Get image data
+        Image* image = imageList->at(i);
+        int imageX = static_cast<int>(image->x());
+        int imageY = static_cast<int>(image->y());
+        image->setVisible(true);
+
+        // Make it float
+        QPropertyAnimation *moveImage = new QPropertyAnimation(image, "geometry");
+        moveImage->setDuration(2000);
+        moveImage->setStartValue(QRect(QPoint(imageX, imageY + 1000), defaultImgSize));
+        moveImage->setEndValue(QRect(QPoint(imageX, imageY), defaultImgSize));
+        moveImage->start();
+        set->addAnimation(moveImage);
+    }
+    set->start();
+    floatTimer->stop();
+}
+
 //! Initializes empty image grid
 void Menu::initializeGrid() {
     int gridColumns = 3;
@@ -123,6 +155,7 @@ void Menu::initializeGrid() {
             image->setBrush(QBrush(Qt::red));
             scene->addItem(image);
             x += 280;
+            imageList->append(image);
         }
         x = 20;
         y += 180;
@@ -159,5 +192,9 @@ void Menu::on_enterButton_clicked() {
 
     // Initalize image grid
     initializeGrid();
+}
 
+//! Updates UI
+void Menu::updateUI() {
+    update();
 }
