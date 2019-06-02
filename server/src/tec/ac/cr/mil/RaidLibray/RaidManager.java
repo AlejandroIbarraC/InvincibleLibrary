@@ -24,7 +24,7 @@ public class RaidManager {
             if (fileCounter != 0) end++;
             if (fileCounter == fileTotal - 1) end = length;
             byte[] partition = Arrays.copyOfRange(ImageBytes, begin, end);
-            fillFile(partition, fileCounter, ImageName+"aa", currentDisk);
+            fillFile(partition, fileCounter, ImageName, currentDisk);
             if (currentDisk == 5) currentDisk = 0;
             currentDisk++;
             fileCounter++;
@@ -160,7 +160,36 @@ public class RaidManager {
         }
     }
     private static void Recovery(int diskToRecover){
+        if(diskToRecover == 4){
+            recoverParity();
+        }else{
+
+        }
+    }
+
+    private static void recoverParity(){
 
     }
 
+    public static void deleteImage(String imageName){
+        int currentDisk = 0;
+        try {
+            while (currentDisk < 4) {
+                File file = new File("." + File.separator + "server" + File.separator +
+                        "src" + File.separator + "tec" + File.separator + "ac" + File.separator +
+                        "cr" + File.separator + "mil" + File.separator + "RaidLibray" + File.separator + "Disks" + File.separator +
+                        "d" + currentDisk + File.separator + imageName + currentDisk + ".pdf");
+                file.delete();
+                currentDisk++;
+            }
+            File file = new File("." + File.separator + "server" + File.separator +
+                    "src" + File.separator + "tec" + File.separator + "ac" + File.separator +
+                    "cr" + File.separator + "mil" + File.separator + "RaidLibray" + File.separator + "Disks" + File.separator +
+                    "d" + currentDisk + File.separator + imageName + "Parity.pdf");
+            file.delete();
+        }catch (Exception e){
+            System.out.println("File not Found");
+            e.printStackTrace();
+        }
+    }
 }
