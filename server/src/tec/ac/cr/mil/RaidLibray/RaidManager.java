@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class RaidManager {
 
-    private static int parityPosition = 0;
+    private static int parityPosition = 4;
 
     public static void Write(byte[] ImageBytes, String ImageName) throws IOException {
         checkDisks();
@@ -18,27 +18,18 @@ public class RaidManager {
         int fileCounter = 0;
         int fileTotal = length/fileSize;
         int currentDisk = 0;
-        while (fileCounter < fileTotal+1){
-            if(currentDisk != parityPosition) {
-                int begin = fileCounter * fileSize;
-                int end = (fileCounter + 1) * fileSize;
-
-                if (fileCounter != 0) end++;
-                if (fileCounter == fileTotal - 1) end = length;
-
-                byte[] partition = Arrays.copyOfRange(ImageBytes, begin, end);
-
-                fillFile(partition, fileCounter, ImageName, currentDisk);
-
-
-                if (currentDisk == 5) currentDisk = 0;
-            }
+        while (fileCounter < fileTotal){
+            int begin = fileCounter * fileSize;
+            int end = (fileCounter + 1) * fileSize;
+            if (fileCounter != 0) end++;
+            if (fileCounter == fileTotal - 1) end = length;
+            byte[] partition = Arrays.copyOfRange(ImageBytes, begin, end);
+            fillFile(partition, fileCounter, ImageName+"aa", currentDisk);
+            if (currentDisk == 5) currentDisk = 0;
             currentDisk++;
             fileCounter++;
         }
-        if(parityPosition == 5) parityPosition = 0;
         calcParity(fileSize, ImageName, parityPosition);
-        parityPosition++;
 
     }
 
