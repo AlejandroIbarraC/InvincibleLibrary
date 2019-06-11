@@ -20,4 +20,7 @@ public class RaidFacade {
     public static void readAllImages(){
         //recursive method
     }
+    public static void deleteAllImages(){
+        //recursive method
+    }
 }
