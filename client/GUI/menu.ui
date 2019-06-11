@@ -42,7 +42,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Kevin es gay</string>
+     <string>Kevin es un sobo</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -142,7 +142,7 @@
      <rect>
       <x>140</x>
       <y>40</y>
-      <width>351</width>
+      <width>441</width>
       <height>51</height>
      </rect>
     </property>
@@ -155,7 +155,7 @@
      <string notr="true"/>
     </property>
     <property name="text">
-     <string>Welcome, Alejandro</string>
+     <string>Welcome</string>
     </property>
    </widget>
    <widget class="QLabel" name="copyBackground">

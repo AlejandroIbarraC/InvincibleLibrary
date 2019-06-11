@@ -1,5 +1,16 @@
 #include "menu.h"
 #include "ui_menu.h"
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+
 
 Menu::Menu(QWidget *parent) :
         QMainWindow(parent),
@@ -169,6 +180,7 @@ void Menu::on_addButton_clicked() {
 }
 
 void Menu::on_enterButton_clicked() {
+
     // Fade out window
     QGraphicsOpacityEffect *fade = new QGraphicsOpacityEffect(this);
     ui->background->setGraphicsEffect(fade);
@@ -197,4 +209,22 @@ void Menu::on_enterButton_clicked() {
 //! Updates UI
 void Menu::updateUI() {
     update();
+}
+
+string Menu::imageToByteArray() {
+
+    std::ifstream ifs("/home/jose/Downloads/hqdefault.jpg", std::ios::in | std::ios::binary);
+    std::ostringstream oss;
+
+    int len;
+    char buf[1024];
+    while ((len = ifs.readsome(buf, 1024)) > 0){
+        oss.write(buf, len);
+    }
+
+    std::string data = oss.str();
+    cout << data;
+
+    return data;
+
 }
