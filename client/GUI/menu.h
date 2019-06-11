@@ -33,6 +33,7 @@ Q_OBJECT
 public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
+    string imageToByteArray ();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);

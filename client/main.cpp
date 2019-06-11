@@ -7,11 +7,16 @@
 
 int main(int argc, char *argv[]){
 
+
+
     QApplication a(argc, argv);
     Menu w;
     w.show();
+    w.imageToByteArray();
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
+
+
 
     return a.exec();
 
