@@ -1,0 +1,51 @@
+<RCC>
+    <qresource prefix="/main/default">
+        <file>logoName.png</file>
+        <file>mainLogo.png</file>
+        <file>dropIcon.png</file>
+        <file>greyBackground.png</file>
+    </qresource>
+    <qresource prefix="/font">
+        <file>font/SF-Pro-Display-Black.otf</file>
+        <file>font/SF-Pro-Display-BlackItalic.otf</file>
+        <file>font/SF-Pro-Display-Bold.otf</file>
+        <file>font/SF-Pro-Display-BoldItalic.otf</file>
+        <file>font/SF-Pro-Display-Heavy.otf</file>
+        <file>font/SF-Pro-Display-HeavyItalic.otf</file>
+        <file>font/SF-Pro-Display-Light.otf</file>
+        <file>font/SF-Pro-Display-LightItalic.otf</file>
+        <file>font/SF-Pro-Display-Medium.otf</file>
+        <file>font/SF-Pro-Display-MediumItalic.otf</file>
+        <file>font/SF-Pro-Display-Regular.otf</file>
+        <file>font/SF-Pro-Display-RegularItalic.otf</file>
+        <file>font/SF-Pro-Display-Semibold.otf</file>
+        <file>font/SF-Pro-Display-SemiboldItalic.otf</file>
+        <file>font/SF-Pro-Display-Thin.otf</file>
+        <file>font/SF-Pro-Display-ThinItalic.otf</file>
+        <file>font/SF-Pro-Display-Ultralight.otf</file>
+        <file>font/SF-Pro-Display-UltralightItalic.otf</file>
+        <file>font/SF-Pro-Text-Bold.otf</file>
+        <file>font/SF-Pro-Text-BoldItalic.otf</file>
+        <file>font/SF-Pro-Text-Heavy.otf</file>
+        <file>font/SF-Pro-Text-HeavyItalic.otf</file>
+        <file>font/SF-Pro-Text-Light.otf</file>
+        <file>font/SF-Pro-Text-LightItalic.otf</file>
+        <file>font/SF-Pro-Text-Medium.otf</file>
+        <file>font/SF-Pro-Text-MediumItalic.otf</file>
+        <file>font/SF-Pro-Text-Regular.otf</file>
+        <file>font/SF-Pro-Text-RegularItalic.otf</file>
+        <file>font/SF-Pro-Text-Semibold.otf</file>
+        <file>font/SF-Pro-Text-SemiboldItalic.otf</file>
+    </qresource>
+    <qresource prefix="/main/buttons">
+        <file>buttons/addButton.png</file>
+        <file>buttons/addButton_hovered.png</file>
+        <file>buttons/backButton.png</file>
+        <file>buttons/editButton.png</file>
+        <file>buttons/editButton_hovered.png</file>
+        <file>buttons/trashButton.png</file>
+        <file>buttons/trashButton_hovered.png</file>
+        <file>buttons/enterButton.png</file>
+        <file>buttons/enterButton_hovered.png</file>
+    </qresource>
+</RCC>

@@ -11,7 +11,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Gladiators GBP</string>
+   <string>Invincible Library</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="assets/resources.qrc">
+    <normaloff>:/main/default/mainLogo.png</normaloff>:/main/default/mainLogo.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="background">
@@ -41,8 +48,232 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="mainLogo">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>101</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="assets/resources.qrc">:/main/default/mainLogo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>500</y>
+      <width>65</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 0</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="assets/resources.qrc">
+      <normaloff>:/main/buttons/buttons/addButton.png</normaloff>:/main/buttons/buttons/addButton.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="creditsLabel">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>570</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Schlafenhase. 2019</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="enterButton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>470</y>
+      <width>111</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:0</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="assets/resources.qrc">
+      <normaloff>:/main/buttons/buttons/enterButton.png</normaloff>:/main/buttons/buttons/enterButton.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>100</width>
+      <height>100</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="welcomeLabel">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>40</y>
+      <width>351</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>31</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>Welcome, Alejandro</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="copyBackground">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="assets/resources.qrc">:/main/default/greyBackground.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dropIcon">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>220</y>
+      <width>121</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="assets/resources.qrc">:/main/default/dropIcon.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dropLabel">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>360</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: transparent</string>
+    </property>
+    <property name="text">
+     <string>Drop to upload</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="imageView">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>110</y>
+      <width>850</width>
+      <height>450</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>850</width>
+      <height>450</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>850</width>
+      <height>10000</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 0</string>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+   </widget>
+   <zorder>dropLabel</zorder>
+   <zorder>dropIcon</zorder>
+   <zorder>copyBackground</zorder>
+   <zorder>background</zorder>
+   <zorder>mainLogo</zorder>
+   <zorder>addButton</zorder>
+   <zorder>creditsLabel</zorder>
+   <zorder>enterButton</zorder>
+   <zorder>welcomeLabel</zorder>
+   <zorder>imageView</zorder>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="assets/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

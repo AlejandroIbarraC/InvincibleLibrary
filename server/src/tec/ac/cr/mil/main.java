@@ -36,7 +36,6 @@ public class main {
                 File.separator + "apple.jpeg");
         r.recognize(loadedImg);
 
-
     }
 
 }
