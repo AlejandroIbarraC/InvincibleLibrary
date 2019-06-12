@@ -19,7 +19,7 @@ Menu::Menu(QWidget *parent) :
     // Initalize default parameters
     ui->setupUi(this);
     setAcceptDrops(true);
-    ui->mainLogo->setGeometry(QRect(400, 100, 200, 200));
+    ui->mainLogo->setGeometry(QRect(450, 100, 200, 200));
     ui->welcomeLabel->setVisible(false);
     ui->copyBackground->setVisible(false);
     ui->dropIcon->setVisible(false);
@@ -32,7 +32,7 @@ Menu::Menu(QWidget *parent) :
     ui->imageView->setScene(scene);
 
     // Bring initial elements to front
-    ui->background->raise();
+    ui->invincibleLabel->raise();
     ui->enterButton->raise();
     ui->mainLogo->raise();
 
@@ -46,12 +46,6 @@ Menu::Menu(QWidget *parent) :
     deletionTimer = new QTimer(this);
     deletionTimer->setInterval(1000);
     connect(deletionTimer, SIGNAL(timeout()), this, SLOT(deleteBackground()));
-    floatTimer = new QTimer(this);
-    floatTimer->setInterval(1000);
-    connect(floatTimer, SIGNAL(timeout()), this, SLOT(floatImages()));
-    updateTimer = new QTimer(this);
-    updateTimer->setInterval(10);
-    connect(updateTimer, SIGNAL(timeout()), this, SLOT(updateUI()));
 }
 
 Menu::~Menu()
@@ -61,7 +55,7 @@ Menu::~Menu()
 
 //! Deletes background. Executed by timer when entering app.
 void Menu::deleteBackground() {
-    ui->background->lower();
+    ui->invincibleLabel->lower();
     deletionTimer->stop();
     hasEntered = true;
 
@@ -74,8 +68,6 @@ void Menu::deleteBackground() {
     fadeOut->setStartValue(0);
     fadeOut->setEndValue(1);
     fadeOut->start(QPropertyAnimation::DeleteWhenStopped);
-
-    //floatTimer->start();
 }
 
 //! Executes while dragging file to window
@@ -128,48 +120,27 @@ void Menu::dropEvent(QDropEvent* e) {
     }
 }
 
-//! Makes images float in sets, time it for better results.
-void Menu::floatImages(){
-    QParallelAnimationGroup* set = new QParallelAnimationGroup();
-    updateTimer->start();
-    QSize defaultImgSize = QSize(208, 117);
-    for (int i = 0; i < 3; i++) {
-        // Get image data
-        Image* image = imageList->at(i);
-        int imageX = static_cast<int>(image->x());
-        int imageY = static_cast<int>(image->y());
-        image->setVisible(true);
-
-        // Make it float
-        QPropertyAnimation *moveImage = new QPropertyAnimation(image, "geometry");
-        moveImage->setDuration(2000);
-        moveImage->setStartValue(QRect(QPoint(imageX, imageY + 1000), defaultImgSize));
-        moveImage->setEndValue(QRect(QPoint(imageX, imageY), defaultImgSize));
-        moveImage->start();
-        set->addAnimation(moveImage);
-    }
-    set->start();
-    floatTimer->stop();
-}
-
 //! Initializes empty image grid
 void Menu::initializeGrid() {
-    int gridColumns = 3;
-    int gridRows = 10;
+    int gridColumns = 12;
+    int gridRows = 9;
     int x = 20;
     int y = 20;
+    int id = 0;
 
     for (int i = 0; i < gridRows; i++) {
         for (int i = 0; i < gridColumns; i++) {
             Image* image = new Image();
-            image->setRect(x, y, 208, 117);
+            image->setRect(x, y, 53, 40);
             image->setBrush(QBrush(Qt::red));
+            image->setID(id);
             scene->addItem(image);
-            x += 280;
+            x += 80;
             imageList->append(image);
+            id++;
         }
         x = 20;
-        y += 180;
+        y += 60;
     }
 }
 
@@ -180,10 +151,9 @@ void Menu::on_addButton_clicked() {
 }
 
 void Menu::on_enterButton_clicked() {
-
     // Fade out window
     QGraphicsOpacityEffect *fade = new QGraphicsOpacityEffect(this);
-    ui->background->setGraphicsEffect(fade);
+    ui->invincibleLabel->setGraphicsEffect(fade);
     QPropertyAnimation *fadeOut = new QPropertyAnimation(fade,"opacity");
     fadeOut->setDuration(1000);
     fadeOut->setStartValue(1);
@@ -206,13 +176,7 @@ void Menu::on_enterButton_clicked() {
     initializeGrid();
 }
 
-//! Updates UI
-void Menu::updateUI() {
-    update();
-}
-
 string Menu::imageToByteArray() {
-
     std::ifstream ifs("/home/jose/Downloads/hqdefault.jpg", std::ios::in | std::ios::binary);
     std::ostringstream oss;
 
