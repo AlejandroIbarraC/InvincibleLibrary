@@ -196,8 +196,6 @@ public class RaidManager {
         for (int i = 0; i <imagesLenght; i++){
 
         }
-
-
     }
 
     private static void createSecurityFile(Path path){
