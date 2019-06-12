@@ -33,6 +33,7 @@ Q_OBJECT
 public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
+    string imageToByteArray ();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
@@ -41,20 +42,15 @@ protected:
 
 private slots:
     void deleteBackground();
-    void floatImages();
     void on_addButton_clicked();
     void on_enterButton_clicked();
-    void updateUI();
 
 private:
     Ui::Menu *ui;
     QTimer* deletionTimer;
-    int floatSet = 1;
-    QTimer* floatTimer;
     bool hasEntered = false;
     QList<Image*>* imageList;
     QGraphicsScene* scene;
-    QTimer* updateTimer;
 
     void initializeGrid();
 
