@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 public class Holder {
 
-    public static ArrayList<Picture> pictureArrayList = new ArrayList<>();
+    public static ArrayList<Picture> pictureArrayList = new ArrayList<Picture>();
 
 }
