@@ -1,10 +1,14 @@
 package tec.ac.cr.mil.RaidLibray;
+import tec.ac.cr.mil.logic.Holder;
+import tec.ac.cr.mil.logic.Picture;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RaidManager {
@@ -141,7 +145,7 @@ public class RaidManager {
         return Response;
     }
 
-    private static void checkDisks(){
+    public static void checkDisks(){
         int currentDisk = 0;
         Path path;
 
@@ -150,28 +154,62 @@ public class RaidManager {
                     File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
                     +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
                     "Disks"+File.separator+"d"+currentDisk+File.separator+"sec.pdf");
-                currentDisk++;
             try {
                 Files.readAllBytes(path);
             } catch (IOException e) {
                 System.out.println("Needs Recovery");
                 Recovery(currentDisk);
             }
+            currentDisk++;
         }
     }
+
     private static void Recovery(int diskToRecover){
         if(diskToRecover == 4){
             recoverParity();
         }else{
+            recoverDisk(diskToRecover);
+        }
+    }
+
+    private static void recoverDisk(int diskToRecover){
+        Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+
+                File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
+                +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
+                "Disks"+File.separator+"d"+diskToRecover);
+        createSecurityFile(path);
+    }
+
+    private static void recoverParity(){
+        ArrayList<String> ImagesNames = getImagesNames();
+        int imagesLenght = ImagesNames.size();
+        Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d4");
+        Path pathDisk0 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d0"+File.separator);
+        Path pathDisk1 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d1"+File.separator);
+        Path pathDisk2 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d2"+File.separator);
+        Path pathDisk3 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d3"+File.separator);
+        byte[] BytesDisk0;
+        byte[] BytesDisk1;
+        byte[] BytesDisk2;
+        byte[] BytesDisk3;
+        createSecurityFile(path);
+        for (int i = 0; i <imagesLenght; i++){
 
         }
     }
 
-    private static void recoverParity(){
-
+    private static void createSecurityFile(Path path){
+        File file = new File(String.valueOf(path)+File.separator+"sec.pdf");
+        byte[] bytes = new byte[1];
+        bytes[0] = 1;
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            fos.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void deleteImage(String imageName){
+    private static void deleteImage(String imageName){
         int currentDisk = 0;
         try {
             while (currentDisk < 4) {
@@ -192,4 +230,14 @@ public class RaidManager {
             e.printStackTrace();
         }
     }
+
+    private static ArrayList<String> getImagesNames(){
+        ArrayList<Picture> picturesArray = Holder.pictureArrayList;
+        ArrayList<String> imagesNames = new ArrayList<String>();
+        for (Picture aPicturesArray : picturesArray) {
+            imagesNames.add(aPicturesArray.getName());
+        }
+        return imagesNames;
+    }
+
 }
