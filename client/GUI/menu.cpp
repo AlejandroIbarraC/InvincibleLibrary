@@ -53,6 +53,22 @@ Menu::~Menu()
     delete ui;
 }
 
+//! Adds image to grid.
+void Menu::addToGrid(QUrl url) {
+    QImage image(url.path());
+
+    // Create pixmap and scale it
+    QPixmap pixmap;
+    pixmap.convertFromImage(image);
+    QPixmap rPix = pixmap.scaled(53, 40);
+
+    // Assign pixmap to image
+    Image* currentImage = imageList->at(gridCount);
+    currentImage->setPixmap(&pixmap);
+    currentImage->setBrush(rPix);
+    gridCount++;
+}
+
 //! Deletes background. Executed by timer when entering app.
 void Menu::deleteBackground() {
     ui->invincibleLabel->lower();
@@ -105,8 +121,9 @@ void Menu::dropEvent(QDropEvent* e) {
             QString fileName = url.toLocalFile();
             QFileInfo info(fileName);
             if (info.exists()) {
-                if (accepted_types.contains(info.suffix().trimmed(), Qt::CaseInsensitive))
-                    qDebug() << fileName;
+                if (accepted_types.contains(info.suffix().trimmed(), Qt::CaseInsensitive)) {
+                    addToGrid(url);
+                }
             }
         }
 
@@ -131,7 +148,7 @@ void Menu::initializeGrid() {
     for (int i = 0; i < gridRows; i++) {
         for (int i = 0; i < gridColumns; i++) {
             Image* image = new Image();
-            image->setRect(x, y, 53, 40);
+            image->setRect(x, y, imgDimX, imgDimY);
             image->setBrush(QBrush(Qt::red));
             image->setID(id);
             scene->addItem(image);

@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QGraphicsOpacityEffect>
 #include <QGraphicsScene>
+#include <QImage>
 #include <QList>
 #include <QMainWindow>
 #include <QMimeData>
@@ -49,9 +50,13 @@ private:
     Ui::Menu *ui;
     QTimer* deletionTimer;
     bool hasEntered = false;
+    int gridCount = 0;
+    int imgDimX  = 53;
+    int imgDimY = 40;
     QList<Image*>* imageList;
     QGraphicsScene* scene;
 
+    void addToGrid(QUrl url);
     void initializeGrid();
 
 };

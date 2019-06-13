@@ -13,14 +13,17 @@ public:
     QRectF boundingRect() const;
     QRect geometry() const;
     int getID();
+    QPixmap* getPixmap();
     void setGeometry(const QRect &value);
     void setID(int nID);
+    void setPixmap(QPixmap* nPixmap);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
     int id;
+    QPixmap* pixmap;
     QRect rect;
 
 };

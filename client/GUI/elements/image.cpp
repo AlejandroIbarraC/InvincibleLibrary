@@ -16,6 +16,10 @@ int Image::getID() {
     return id;
 }
 
+QPixmap* Image::getPixmap() {
+    return pixmap;
+}
+
 void Image::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 }
@@ -29,4 +33,8 @@ void Image::setGeometry(const QRect &value) {
 
 void Image::setID(int nID) {
     id = nID;
+}
+
+void Image::setPixmap(QPixmap* nPixmap) {
+    pixmap = nPixmap;
 }
