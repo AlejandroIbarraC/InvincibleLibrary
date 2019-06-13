@@ -10,7 +10,6 @@ class Image : public QObject, public QGraphicsRectItem {
 
 public:
     Image(QObject* parent = nullptr);
-    QRectF boundingRect() const;
     QRect geometry() const;
     int getID();
     QPixmap* getPixmap();
@@ -19,7 +18,7 @@ public:
     void setPixmap(QPixmap* nPixmap);
 
 protected:
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
     int id;

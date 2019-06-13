@@ -6,10 +6,6 @@ Image::Image(QObject* parent) : QObject (parent) {
 
 }
 
-QRectF Image::boundingRect() const {
-    return QRectF(rect);
-}
-
 QRect Image::geometry() const {
     return rect;
 }
@@ -23,8 +19,9 @@ QPixmap* Image::getPixmap() {
 }
 
 void Image::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+        Menu* menu = Menu::getInstance();
+        menu->raiseImage(this);
         this->setBrush(Qt::yellow);
-        qDebug() << " hello";
 }
 
 void Image::setGeometry(const QRect &value) {

@@ -165,6 +165,10 @@ void Menu::initializeGrid() {
     }
 }
 
+QList<Image*>* Menu::getImageList() {
+    return imageList;
+}
+
 Menu* Menu::getInstance() {
     return menu;
 }
@@ -216,13 +220,9 @@ QString Menu::pictureToString(QImage image) {
 }
 
 //! Raises image to make it bigger.
-void Menu::raiseImage(int index) {
-    QObject* image = imageList->at(index);
-    QPropertyAnimation *moveImage = new QPropertyAnimation(image, "geometry");
-    moveImage->setDuration(1000);
-    moveImage->setStartValue(QRect(380, 100, 200, 200));
-    moveImage->setEndValue(QRect(20, 20, 100, 100));
-    moveImage->start();
+void Menu::raiseImage(Image* image) {
+   QPixmap* imgPix = image->getPixmap();
+   QPixmap scaledPix = imgPix->scaled(50, 50);
 }
 
 //! Decodes base64 encoded image to QPixmap

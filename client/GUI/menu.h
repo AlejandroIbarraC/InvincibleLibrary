@@ -28,15 +28,15 @@ namespace Ui {
     class Menu;
 }
 
-class Menu : public QMainWindow
-{
+class Menu : public QMainWindow {
 Q_OBJECT
 
 public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
+    QList<Image*>* getImageList();
     static Menu* getInstance();
-    void raiseImage(int index);
+    void raiseImage(Image* image);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
@@ -55,11 +55,11 @@ private:
     int gridCount = 0;
     int imgDimX  = 53;
     int imgDimY = 40;
-    QList<Image*>* imageList;
     static Menu* menu;
     QGraphicsScene* scene;
 
     void addToGrid(QUrl url);
+    QList<Image*>* imageList;
     void initializeGrid();
     QString pictureToString(QImage image);
     QPixmap* stringToPixmap(QString base64Image);
