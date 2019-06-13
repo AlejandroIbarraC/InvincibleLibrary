@@ -59,8 +59,7 @@ void Menu::addToGrid(QUrl url) {
 
     // Create pixmap and scale it
     QPixmap* pixmap = new QPixmap();
-    //pixmap.convertFromImage(image);
-    pixmap = stringToPixmap(pictureToString(image));
+    pixmap->convertFromImage(image);
     QPixmap rPix = pixmap->scaled(53, 40);
 
     // Assign pixmap to image
@@ -210,9 +209,14 @@ QString Menu::pictureToString(QImage image) {
     return iconBase64;
 }
 
+//! Decodes base64 encoded image to QPixmap
 QPixmap* Menu::stringToPixmap(QString base64Image) {
+    // Reads incoming string as QByteArray
     QByteArray byteImage = base64Image.toLatin1();
+
+    // Convert QByteArray to QPixmap
     QPixmap* pixmap = new QPixmap();
     pixmap->loadFromData(QByteArray::fromBase64(byteImage));
+
     return pixmap;
 }
