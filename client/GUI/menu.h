@@ -35,6 +35,8 @@ Q_OBJECT
 public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
+    static Menu* getInstance();
+    void raiseImage(int index);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
@@ -54,6 +56,7 @@ private:
     int imgDimX  = 53;
     int imgDimY = 40;
     QList<Image*>* imageList;
+    static Menu* menu;
     QGraphicsScene* scene;
 
     void addToGrid(QUrl url);

@@ -1,5 +1,7 @@
 #include "image.h"
 
+#include "../menu.h"
+
 Image::Image(QObject* parent) : QObject (parent) {
 
 }
@@ -21,7 +23,8 @@ QPixmap* Image::getPixmap() {
 }
 
 void Image::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-
+        this->setBrush(Qt::yellow);
+        qDebug() << " hello";
 }
 
 void Image::setGeometry(const QRect &value) {

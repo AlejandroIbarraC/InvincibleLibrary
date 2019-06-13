@@ -2,7 +2,7 @@
 #define IMAGE_H
 
 #include <QGraphicsRectItem>
-
+#include <QGraphicsSceneMouseEvent>
 
 class Image : public QObject, public QGraphicsRectItem {
     Q_OBJECT
@@ -19,7 +19,7 @@ public:
     void setPixmap(QPixmap* nPixmap);
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
 private:
     int id;

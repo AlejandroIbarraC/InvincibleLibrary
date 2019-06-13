@@ -12,11 +12,13 @@
 #include <sys/socket.h>
 #include <QtWidgets/QLabel>
 
+// Singleton initialization
+Menu* Menu::menu = nullptr;
+
 using namespace  std;
 Menu::Menu(QWidget *parent) :
         QMainWindow(parent),
-        ui(new Ui::Menu)
-{
+        ui(new Ui::Menu) {
     // Initalize default parameters
     ui->setupUi(this);
     setAcceptDrops(true);
@@ -49,8 +51,7 @@ Menu::Menu(QWidget *parent) :
     connect(deletionTimer, SIGNAL(timeout()), this, SLOT(deleteBackground()));
 }
 
-Menu::~Menu()
-{
+Menu::~Menu() {
     delete ui;
 }
 
@@ -86,6 +87,7 @@ void Menu::deleteBackground() {
     fadeOut->setStartValue(0);
     fadeOut->setEndValue(1);
     fadeOut->start(QPropertyAnimation::DeleteWhenStopped);
+    ui->imageView->raise();
 }
 
 //! Executes while dragging file to window
@@ -153,7 +155,6 @@ void Menu::initializeGrid() {
             image->setRect(x, y, imgDimX, imgDimY);
             image->setBrush(QBrush(Qt::red));
             image->setID(id);
-            image->setVisible(false);
             scene->addItem(image);
             x += 80;
             imageList->append(image);
@@ -162,6 +163,10 @@ void Menu::initializeGrid() {
         x = 20;
         y += 60;
     }
+}
+
+Menu* Menu::getInstance() {
+    return menu;
 }
 
 void Menu::on_addButton_clicked() {
@@ -208,6 +213,16 @@ QString Menu::pictureToString(QImage image) {
     QString iconBase64 = QString::fromLatin1(byteArray.toBase64().data());
 
     return iconBase64;
+}
+
+//! Raises image to make it bigger.
+void Menu::raiseImage(int index) {
+    QObject* image = imageList->at(index);
+    QPropertyAnimation *moveImage = new QPropertyAnimation(image, "geometry");
+    moveImage->setDuration(1000);
+    moveImage->setStartValue(QRect(380, 100, 200, 200));
+    moveImage->setEndValue(QRect(20, 20, 100, 100));
+    moveImage->start();
 }
 
 //! Decodes base64 encoded image to QPixmap
