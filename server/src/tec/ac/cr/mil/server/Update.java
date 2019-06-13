@@ -1,5 +1,6 @@
 package tec.ac.cr.mil.server;
 
+import tec.ac.cr.mil.logic.DatabaseFacace;
 import tec.ac.cr.mil.logic.Picture;
 
 import javax.ws.rs.Consumes;
@@ -14,7 +15,7 @@ public class Update {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updatePicture(Picture picture){
         System.out.println(3);
-        //Aqui va para agregar la foto
+        DatabaseFacace.UPDATE(picture);
     }
 
 }

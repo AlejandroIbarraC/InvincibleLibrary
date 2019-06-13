@@ -1,5 +1,6 @@
 package tec.ac.cr.mil.server;
 
+import tec.ac.cr.mil.logic.DatabaseFacace;
 import tec.ac.cr.mil.logic.Picture;
 
 import javax.ws.rs.Consumes;
@@ -14,7 +15,7 @@ public class Insert {
     @Consumes(MediaType.APPLICATION_JSON)
     public void addPicture(Picture picture){
         System.out.println(2);
-        //Aqui va para agregar imagen
+        DatabaseFacace.INSERT(picture);
     }
 
 }

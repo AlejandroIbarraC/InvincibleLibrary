@@ -4,12 +4,13 @@ public class Picture {
 
     public Picture(){}
 
-    public Picture(String name, String author, int year, int size, String pictureData){
+    public Picture(String name, String author, int year, String pictureData){
         this.name = name;
         this.author = author;
         this.year = year;
-        this.size = size;
         this.pictureData = pictureData;
+        this.id = 0;
+        this.size = 0;
     }
 
     private String name;
@@ -17,6 +18,7 @@ public class Picture {
     private int year;
     private int size;
     private String pictureData;
+    private int id;
 
     public String getName() {
         return name;
@@ -56,5 +58,13 @@ public class Picture {
 
     public void setPictureData(String pictureData) {
         this.pictureData = pictureData;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
