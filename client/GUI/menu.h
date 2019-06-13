@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include <QBuffer>
 #include <QDebug>
 #include <QDragEnterEvent>
 #include <QFileDialog>
@@ -34,7 +35,6 @@ Q_OBJECT
 public:
     explicit Menu(QWidget *parent = nullptr);
     ~Menu();
-    string imageToByteArray ();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
@@ -47,7 +47,7 @@ private slots:
     void on_enterButton_clicked();
 
 private:
-    Ui::Menu *ui;
+    Ui::Menu* ui;
     QTimer* deletionTimer;
     bool hasEntered = false;
     int gridCount = 0;
@@ -58,6 +58,8 @@ private:
 
     void addToGrid(QUrl url);
     void initializeGrid();
+    QString pictureToString(QImage image);
+    QPixmap* stringToPixmap(QString base64Image);
 
 };
 

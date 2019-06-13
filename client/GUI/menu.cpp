@@ -11,7 +11,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 
-
+using namespace  std;
 Menu::Menu(QWidget *parent) :
         QMainWindow(parent),
         ui(new Ui::Menu)
@@ -58,13 +58,15 @@ void Menu::addToGrid(QUrl url) {
     QImage image(url.path());
 
     // Create pixmap and scale it
-    QPixmap pixmap;
-    pixmap.convertFromImage(image);
-    QPixmap rPix = pixmap.scaled(53, 40);
+    QPixmap* pixmap = new QPixmap();
+    //pixmap.convertFromImage(image);
+    pixmap = stringToPixmap(pictureToString(image));
+    QPixmap rPix = pixmap->scaled(53, 40);
 
     // Assign pixmap to image
     Image* currentImage = imageList->at(gridCount);
-    currentImage->setPixmap(&pixmap);
+    currentImage->setVisible(true);
+    currentImage->setPixmap(pixmap);
     currentImage->setBrush(rPix);
     gridCount++;
 }
@@ -117,7 +119,7 @@ void Menu::dropEvent(QDropEvent* e) {
         // Define accepted image types
         QStringList accepted_types;
         accepted_types << "jpeg" << "jpg" << "png" << "heif" << "bmp";
-        foreach(const QUrl & url, e->mimeData()->urls()) {
+        foreach(const QUrl& url, e->mimeData()->urls()) {
             QString fileName = url.toLocalFile();
             QFileInfo info(fileName);
             if (info.exists()) {
@@ -151,6 +153,7 @@ void Menu::initializeGrid() {
             image->setRect(x, y, imgDimX, imgDimY);
             image->setBrush(QBrush(Qt::red));
             image->setID(id);
+            image->setVisible(false);
             scene->addItem(image);
             x += 80;
             imageList->append(image);
@@ -193,19 +196,23 @@ void Menu::on_enterButton_clicked() {
     initializeGrid();
 }
 
-string Menu::imageToByteArray() {
-    std::ifstream ifs("/home/jose/Downloads/hqdefault.jpg", std::ios::in | std::ios::binary);
-    std::ostringstream oss;
 
-    int len;
-    char buf[1024];
-    while ((len = ifs.readsome(buf, 1024)) > 0){
-        oss.write(buf, len);
-    }
+//! Encodes photo in Base64 QString
+QString Menu::pictureToString(QImage image) {
+    // Initialize buffer to store image
+    QByteArray byteArray;
+    QBuffer buffer(&byteArray);
 
-    std::string data = oss.str();
-    cout << data;
+    // Save image and encode it in Base64
+    image.save(&buffer, "PNG");
+    QString iconBase64 = QString::fromLatin1(byteArray.toBase64().data());
 
-    return data;
+    return iconBase64;
+}
 
+QPixmap* Menu::stringToPixmap(QString base64Image) {
+    QByteArray byteImage = base64Image.toLatin1();
+    QPixmap* pixmap = new QPixmap();
+    pixmap->loadFromData(QByteArray::fromBase64(byteImage));
+    return pixmap;
 }
