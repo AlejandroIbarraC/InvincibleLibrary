@@ -209,7 +209,7 @@ public class RaidManager {
         }
     }
 
-    private static void deleteImage(String imageName){
+    public static void deleteImage(String imageName){
         int currentDisk = 0;
         try {
             while (currentDisk < 4) {
