@@ -4,11 +4,10 @@ public class Picture {
 
     public Picture(){}
 
-    public Picture(String name, String author, int year, String pictureData){
+    public Picture(String name, String author, int year){
         this.name = name;
         this.author = author;
         this.year = year;
-        this.pictureData = pictureData;
         this.id = 0;
         this.size = 0;
     }
