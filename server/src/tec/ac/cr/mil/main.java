@@ -9,6 +9,8 @@ import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 
+import static tec.ac.cr.mil.logic.Holder.pictureArrayList;
+
 public class main {
 
     public static void main(String[] args) throws IOException {

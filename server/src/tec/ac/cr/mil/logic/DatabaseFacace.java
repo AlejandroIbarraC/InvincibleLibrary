@@ -1,14 +1,19 @@
 package tec.ac.cr.mil.logic;
 
+import tec.ac.cr.mil.raid.RaidFacade;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static tec.ac.cr.mil.logic.Holder.pictureArrayList;
 
 public class DatabaseFacace {
 
-    public static void INSERT(Picture picture){
+    public static void INSERT(Picture picture) throws IOException {
         Serializer.deserialize();
         picture.setId(getFreeID());
+        RaidFacade.addImage(picture.getPictureData(), picture.getName());
+        picture.setPictureData("");
         pictureArrayList.add(picture);
         Serializer.serialize();
     }
@@ -19,14 +24,18 @@ public class DatabaseFacace {
         if (toRMPicture != null){
             pictureArrayList.remove(toRMPicture);
         }
+        RaidFacade.deleteImage(picture.getName());
         Serializer.serialize();
     }
 
-    public static void UPDATE(Picture picture){
+    public static void UPDATE(Picture picture) throws IOException {
         Serializer.deserialize();
         Picture toRMPicture = getOldPicture(picture.getId());
         if (toRMPicture != null){
+            RaidFacade.deleteImage(toRMPicture.getName());
+            RaidFacade.addImage(picture.getPictureData(), picture.getName());
             pictureArrayList.remove(toRMPicture);
+            picture.setPictureData("");
             pictureArrayList.add(picture);
         }
         Serializer.serialize();
@@ -34,6 +43,7 @@ public class DatabaseFacace {
 
     public static ArrayList<Picture> SELECT(){
         Serializer.deserialize();
+        getAllPicturesData();
         return pictureArrayList;
     }
 
@@ -58,6 +68,15 @@ public class DatabaseFacace {
             }
         }
         return null;
+    }
+
+    private static void getAllPicturesData(){
+        for (int i = 0; i < pictureArrayList.size(); i++){
+            Picture picture = pictureArrayList.get(i);
+            String name = picture.getName();
+            int size = picture.getSize();
+            picture.setPictureData(RaidFacade.readImage(size, name));
+        }
     }
 
 }
