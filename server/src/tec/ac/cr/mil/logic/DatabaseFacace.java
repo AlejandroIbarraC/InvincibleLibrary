@@ -12,6 +12,8 @@ public class DatabaseFacace {
     public static void INSERT(Picture picture) throws IOException {
         Serializer.deserialize();
         picture.setId(getFreeID());
+        byte[] pictureBytes = picture.getPictureData().getBytes();
+        picture.setSize(pictureBytes.length);
         RaidFacade.addImage(picture.getPictureData(), picture.getName());
         picture.setPictureData("");
         pictureArrayList.add(picture);
