@@ -4,16 +4,16 @@ public class Picture {
 
     public Picture(){}
 
-    public Picture(String name, String autor, int year, int size, String pictureData){
+    public Picture(String name, String author, int year, int size, String pictureData){
         this.name = name;
-        this.autor = autor;
+        this.author = author;
         this.year = year;
         this.size = size;
         this.pictureData = pictureData;
     }
 
     private String name;
-    private String autor;
+    private String author;
     private int year;
     private int size;
     private String pictureData;
@@ -26,12 +26,12 @@ public class Picture {
         this.name = name;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public int getYear() {

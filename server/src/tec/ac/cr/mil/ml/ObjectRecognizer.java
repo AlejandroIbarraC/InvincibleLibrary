@@ -1,4 +1,4 @@
-package tec.ac.cr.mil;
+package tec.ac.cr.mil.ml;
 
 import org.tensorflow.Graph;
 import org.tensorflow.Session;
@@ -76,7 +76,8 @@ public class ObjectRecognizer {
         File file = new File("." + File.separator + "server" +
                 File.separator + "src" + File.separator + "tec" +
                 File.separator + "ac" + File.separator + "cr" +
-                File.separator + "mil" + File.separator + "model");
+                File.separator + "mil" + File.separator + "ml" +
+                File.separator + "model");
         modelpath = file.getAbsolutePath();
         System.out.println("Opening: " + file.getAbsolutePath());
         graphDef = ObjectRecognizer.readBytes(Paths.get(modelpath,"tensorflow_inception_graph.pb"));

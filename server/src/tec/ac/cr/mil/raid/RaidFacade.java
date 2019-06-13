@@ -1,4 +1,4 @@
-package tec.ac.cr.mil.RaidLibray;
+package tec.ac.cr.mil.raid;
 
 import java.io.IOException;
 import java.util.Arrays;

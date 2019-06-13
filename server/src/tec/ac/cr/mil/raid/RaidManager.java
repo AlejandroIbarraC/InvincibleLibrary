@@ -1,4 +1,4 @@
-package tec.ac.cr.mil.RaidLibray;
+package tec.ac.cr.mil.raid;
 import tec.ac.cr.mil.logic.Holder;
 import tec.ac.cr.mil.logic.Picture;
 
@@ -48,8 +48,8 @@ public class RaidManager {
         while (counter < totalPartitions){
             Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+
                     File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
-                    +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
-                    "Disks"+File.separator+"d"+currentDisk+File.separator+Name+counter+".pdf");
+                    +File.separator+"mil"+File.separator+"raid"+File.separator+
+                    "disks"+File.separator+"d"+currentDisk+File.separator+Name+counter+".pdf");
             try {
                 byte[] bArray = Files.readAllBytes(path);
                 System.arraycopy(bArray, 0, FileBytes, (stripSize * counter), bArray.length);
@@ -71,7 +71,7 @@ public class RaidManager {
     private static void fillFile(byte[] byteFiles, int index, String fileName, int currentDisk){
         File file = new File("."+File.separator+"server"+File.separator+
                 "src"+File.separator+"tec"+File.separator+"ac"+File.separator+
-                "cr"+File.separator+"mil"+File.separator+"RaidLibray"+File.separator+"Disks"+File.separator+
+                "cr"+File.separator+"mil"+File.separator+"raid"+File.separator+"disks"+File.separator+
                 "d"+currentDisk+File.separator+fileName+index+".pdf");
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(byteFiles);
@@ -85,7 +85,7 @@ public class RaidManager {
     private static void calcParity(int size, String fileName, int disk){
         File file = new File("."+File.separator+"server"+File.separator+
                 "src"+File.separator+"tec"+File.separator+"ac"+File.separator+
-                "cr"+File.separator+"mil"+File.separator+"RaidLibray"+File.separator+"Disks"+File.separator+
+                "cr"+File.separator+"mil"+File.separator+"raid"+File.separator+"disks"+File.separator+
                 "d"+parityPosition+File.separator+fileName+"Parity.pdf");
 
         byte[] parity = calcByteArrayParity(size, fileName, disk);
@@ -129,8 +129,8 @@ public class RaidManager {
         while (counter<4 && counter!= parityPosition){
             Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+
                     File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
-                    +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
-                    "Disks"+File.separator+"d"+counter+File.separator+fileName+counter+".pdf");
+                    +File.separator+"mil"+File.separator+"raid"+File.separator+
+                    "disks"+File.separator+"d"+counter+File.separator+fileName+counter+".pdf");
             try {
                 byte[] bArray = Files.readAllBytes(path);
                 Response[index]=bArray;
@@ -152,8 +152,8 @@ public class RaidManager {
         while (currentDisk < 5){
             path = Paths.get("."+File.separator+"server"+File.separator+"src"+
                     File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
-                    +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
-                    "Disks"+File.separator+"d"+currentDisk+File.separator+"sec.pdf");
+                    +File.separator+"mil"+File.separator+"raid"+File.separator+
+                    "disks"+File.separator+"d"+currentDisk+File.separator+"sec.pdf");
             try {
                 Files.readAllBytes(path);
             } catch (IOException e) {
@@ -175,19 +175,19 @@ public class RaidManager {
     private static void recoverDisk(int diskToRecover){
         Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+
                 File.separator+"tec"+File.separator+"ac"+File.separator+"cr"
-                +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+
-                "Disks"+File.separator+"d"+diskToRecover);
+                +File.separator+"mil"+File.separator+"raid"+File.separator+
+                "disks"+File.separator+"d"+diskToRecover);
         createSecurityFile(path);
     }
 
     private static void recoverParity(){
         ArrayList<String> ImagesNames = getImagesNames();
         int imagesLenght = ImagesNames.size();
-        Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d4");
-        Path pathDisk0 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d0"+File.separator);
-        Path pathDisk1 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d1"+File.separator);
-        Path pathDisk2 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d2"+File.separator);
-        Path pathDisk3 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"RaidLibray"+File.separator+ "Disks"+File.separator+"d3"+File.separator);
+        Path path = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"raid"+File.separator+ "disks"+File.separator+"d4");
+        Path pathDisk0 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"raid"+File.separator+ "disks"+File.separator+"d0"+File.separator);
+        Path pathDisk1 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"raid"+File.separator+ "disks"+File.separator+"d1"+File.separator);
+        Path pathDisk2 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"raid"+File.separator+ "disks"+File.separator+"d2"+File.separator);
+        Path pathDisk3 = Paths.get("."+File.separator+"server"+File.separator+"src"+File.separator+"tec"+File.separator+"ac"+File.separator+"cr" +File.separator+"mil"+File.separator+"raid"+File.separator+ "disks"+File.separator+"d3"+File.separator);
         byte[] BytesDisk0;
         byte[] BytesDisk1;
         byte[] BytesDisk2;
@@ -215,14 +215,14 @@ public class RaidManager {
             while (currentDisk < 4) {
                 File file = new File("." + File.separator + "server" + File.separator +
                         "src" + File.separator + "tec" + File.separator + "ac" + File.separator +
-                        "cr" + File.separator + "mil" + File.separator + "RaidLibray" + File.separator + "Disks" + File.separator +
+                        "cr" + File.separator + "mil" + File.separator + "raid" + File.separator + "disks" + File.separator +
                         "d" + currentDisk + File.separator + imageName + currentDisk + ".pdf");
                 file.delete();
                 currentDisk++;
             }
             File file = new File("." + File.separator + "server" + File.separator +
                     "src" + File.separator + "tec" + File.separator + "ac" + File.separator +
-                    "cr" + File.separator + "mil" + File.separator + "RaidLibray" + File.separator + "Disks" + File.separator +
+                    "cr" + File.separator + "mil" + File.separator + "raid" + File.separator + "disks" + File.separator +
                     "d" + currentDisk + File.separator + imageName + "Parity.pdf");
             file.delete();
         }catch (Exception e){
