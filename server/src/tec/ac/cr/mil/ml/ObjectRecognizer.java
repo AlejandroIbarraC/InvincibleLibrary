@@ -71,7 +71,7 @@ public class ObjectRecognizer {
         return null;
     }
 
-    public void recognize(File loadedImg) {
+    public String getDescription(File loadedImg) {
         // Define ML model
         File file = new File("." + File.separator + "server" +
                 File.separator + "src" + File.separator + "tec" +
@@ -79,7 +79,6 @@ public class ObjectRecognizer {
                 File.separator + "mil" + File.separator + "ml" +
                 File.separator + "model");
         modelpath = file.getAbsolutePath();
-        System.out.println("Opening: " + file.getAbsolutePath());
         graphDef = ObjectRecognizer.readBytes(Paths.get(modelpath,"tensorflow_inception_graph.pb"));
         labels = ObjectRecognizer.readLines(Paths.get(modelpath, "imagenet_comp_graph_label_strings.txt"));
 
@@ -92,26 +91,8 @@ public class ObjectRecognizer {
         try (Tensor image = Tensor.create(imageBytes)) {
             float[] labelProbabilities = ObjectRecognizer.executeInceptionGraph(graphDef, image);
             int bestLabelIdx = ObjectRecognizer.maxIndex(labelProbabilities);
-            System.out.println(
-                    String.format(
-                            "BEST MATCH: %s (%.2f%% likely)",
-                            labels.get(bestLabelIdx), labelProbabilities[bestLabelIdx] * 100f));
-            System.out.println(
-                    String.format(
-                            "Option 2: %s (%.2f%% likely)",
-                            labels.get(bestLabelIdx + 1), labelProbabilities[bestLabelIdx + 1] * 100f));
-            System.out.println(
-                    String.format(
-                            "Option 3: %s (%.2f%% likely)",
-                            labels.get(bestLabelIdx + 2), labelProbabilities[bestLabelIdx + 2] * 100f));
-            System.out.println(
-                    String.format(
-                            "Option 4: %s (%.2f%% likely)",
-                            labels.get(bestLabelIdx + 3), labelProbabilities[bestLabelIdx + 3] * 100f));
-            System.out.println(
-                    String.format(
-                            "Option 5: %s (%.2f%% likely)",
-                            labels.get(bestLabelIdx + 4), labelProbabilities[bestLabelIdx + 4] * 100f));
+
+            return labels.get(bestLabelIdx);
         }
     }
 

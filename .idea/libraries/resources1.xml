@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="resources1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/resources/jackson-annotations-2.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.servlet.jsp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.persistence.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/tensorflow-1.13.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/jackson-module-jaxb-annotations-2.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.jms.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.servlet.jsp.jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.ejb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/stax2-api-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/jackson-dataformat-xml-2.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.annotation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/libtensorflow-1.13.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.resource.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.transaction.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/jackson-core-2.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/javax.ws.rs-api-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/jackson-databind-2.9.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/resources/libtensorflow_jni-1.13.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

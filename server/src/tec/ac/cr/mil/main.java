@@ -28,13 +28,15 @@ public class main {
 
         // Object recognition using Machine Learning:
 
-//        ObjectRecognizer r = new ObjectRecognizer();
-//        File loadedImg = new File( "." + File.separator + "server" +
-//                File.separator + "src" + File.separator + "tec" +
-//                File.separator + "ac" + File.separator + "cr" +
-//                File.separator + "mil" + File.separator + "testresources" +
-//                File.separator + "apple.jpeg");
-//        r.recognize(loadedImg);
+        ObjectRecognizer r = new ObjectRecognizer();
+        File loadedImg = new File( "." + File.separator + "server" +
+                File.separator + "src" + File.separator + "tec" +
+                File.separator + "ac" + File.separator + "cr" +
+                File.separator + "mil" + File.separator + "testresources" +
+                File.separator + "apple.jpeg");
+        String description = r.getDescription(loadedImg);
+        System.out.println(description);
+
 
     }
 
