@@ -117,27 +117,32 @@ void Menu::dragLeaveEvent(QDragLeaveEvent* e) {
 
 //! Executes when dropping file in window
 void Menu::dropEvent(QDropEvent* e) {
-    if (hasEntered) {
-        // Define accepted image types
-        QStringList accepted_types;
-        accepted_types << "jpeg" << "jpg" << "png" << "heif" << "bmp";
-        foreach(const QUrl& url, e->mimeData()->urls()) {
-            QString fileName = url.toLocalFile();
-            QFileInfo info(fileName);
-            if (info.exists()) {
-                if (accepted_types.contains(info.suffix().trimmed(), Qt::CaseInsensitive)) {
-                    addToGrid(url);
+    QString string = "";
+    if (ui->nameEntry->displayText() != string && ui->authorEntry->displayText() != string && ui->dateEntry->displayText() != string){
+        if (hasEntered) {
+            // Define accepted image types
+            QStringList accepted_types;
+            accepted_types << "jpeg" << "jpg" << "png" << "heif" << "bmp";
+            foreach(const QUrl& url, e->mimeData()->urls()) {
+                QString fileName = url.toLocalFile();
+                QFileInfo info(fileName);
+                if (info.exists()) {
+                    if (accepted_types.contains(info.suffix().trimmed(), Qt::CaseInsensitive)) {
+                        addToGrid(url);
+                    }
                 }
             }
-        }
 
-        // Reset drop background elements
-        ui->copyBackground->setVisible(false);
-        ui->dropIcon->setVisible(false);
-        ui->dropLabel->setVisible(false);
-        ui->copyBackground->lower();
-        ui->dropIcon->lower();
-        ui->dropLabel->lower();
+            // Reset drop background elements
+            ui->copyBackground->setVisible(false);
+            ui->dropIcon->setVisible(false);
+            ui->dropLabel->setVisible(false);
+            ui->copyBackground->lower();
+            ui->dropIcon->lower();
+            ui->dropLabel->lower();
+        }
+    }else{
+        qDebug() << "No se pudo agregar imagen";
     }
 }
 
@@ -174,9 +179,18 @@ Menu* Menu::getInstance() {
 }
 
 void Menu::on_addButton_clicked() {
-    QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Select Image"), "/home/jana", tr("Image Files (*.jpeg *.jpg *.png *.heif *.bmp)"));
-    qDebug() << fileName;
+    QString string = "";
+    if (ui->nameEntry->displayText() != string && ui->authorEntry->displayText() != string && ui->dateEntry->displayText() != string){
+        qDebug() << "Entré";
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Select Image"), "/home/jana", tr("Image Files (*.jpeg *.jpg *.png *.heif *.bmp)"));
+        addToGrid(fileName);
+        qDebug() << fileName;
+    }else{
+        qDebug() << "No se pudo agregar imagen";
+    }
+
+
+
 }
 
 void Menu::on_enterButton_clicked() {
