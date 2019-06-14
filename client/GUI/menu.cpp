@@ -42,8 +42,10 @@ Menu::Menu(QWidget *parent) :
     // Button hover watchers
     ButtonHoverWatcher* addWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/addButton.png",":/main/buttons/buttons/addButton_hovered.png");
     ButtonHoverWatcher* enterWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/enterButton.png",":/main/buttons/buttons/enterButton_hovered.png");
+    ButtonHoverWatcher* refreshWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/refreshButton.png",":/main/buttons/buttons/refreshButton_hovered.png");
     ui->addButton->installEventFilter(addWatcher);
     ui->enterButton->installEventFilter(enterWatcher);
+    ui->refreshButton->installEventFilter(refreshWatcher);
 
     // Animation timers
     deletionTimer = new QTimer(this);
@@ -219,6 +221,9 @@ void Menu::on_enterButton_clicked() {
     initializeGrid();
 }
 
+void Menu::on_refreshButton_clicked() {
+    qDebug() << "refresh button clicked";
+}
 
 //! Encodes photo in Base64 QString
 QString Menu::pictureToString(QImage image) {
