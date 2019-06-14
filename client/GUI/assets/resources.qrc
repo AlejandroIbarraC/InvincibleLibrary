@@ -47,5 +47,7 @@
         <file>buttons/trashButton_hovered.png</file>
         <file>buttons/enterButton.png</file>
         <file>buttons/enterButton_hovered.png</file>
+        <file>buttons/refreshButton.png</file>
+        <file>buttons/refreshButton_hovered.png</file>
     </qresource>
 </RCC>
