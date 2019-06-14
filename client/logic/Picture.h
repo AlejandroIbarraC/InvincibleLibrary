@@ -22,6 +22,7 @@ public:
         this->pictureData = pictureData;
         this->size = 0;
         this->id = 0;
+        this->description = "";
     }
 
     const string &getName() const;
@@ -36,6 +37,9 @@ public:
     void setPictureData(const string &pictureData);
     int getId() const;
     void setId(int id);
+    const string &getDescription() const;
+    void setDescription(const string &description);
+
     string serialize();
     void deserialize(string jsonPicture);
 
@@ -47,6 +51,7 @@ private:
     int size;
     string pictureData;
     int id;
+    string description;
 
 };
 

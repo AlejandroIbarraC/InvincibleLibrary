@@ -3,7 +3,6 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/resources" />
     </CLASSES>
-    <JAVADOC />
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/resources" recursive="false" />
   </library>
