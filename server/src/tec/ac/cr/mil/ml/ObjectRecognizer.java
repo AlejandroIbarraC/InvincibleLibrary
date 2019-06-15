@@ -71,7 +71,7 @@ public class ObjectRecognizer {
         return null;
     }
 
-    public String getDescription(File loadedImg) {
+    public String getDescription(byte[] imageBytes) {
         // Define ML model
         File file = new File("." + File.separator + "server" +
                 File.separator + "src" + File.separator + "tec" +
@@ -82,12 +82,6 @@ public class ObjectRecognizer {
         graphDef = ObjectRecognizer.readBytes(Paths.get(modelpath,"tensorflow_inception_graph.pb"));
         labels = ObjectRecognizer.readLines(Paths.get(modelpath, "imagenet_comp_graph_label_strings.txt"));
 
-        // Load image
-        imagepath = loadedImg.getAbsolutePath();
-        System.out.println("Image Path: " + imagepath);
-
-        // Apply Machine Learning
-        byte[] imageBytes = ObjectRecognizer.readBytes(Paths.get(imagepath));
         try (Tensor image = Tensor.create(imageBytes)) {
             float[] labelProbabilities = ObjectRecognizer.executeInceptionGraph(graphDef, image);
             int bestLabelIdx = ObjectRecognizer.maxIndex(labelProbabilities);
