@@ -168,7 +168,7 @@
     <property name="font">
      <font>
       <family>SF Pro Rounded</family>
-      <pointsize>40</pointsize>
+      <pointsize>32</pointsize>
      </font>
     </property>
     <property name="styleSheet">
