@@ -27,6 +27,7 @@ Menu::Menu(QWidget *parent) :
     ui->copyBackground->setVisible(false);
     ui->dropIcon->setVisible(false);
     ui->dropLabel->setVisible(false);
+    ui->fillPromptLabel->setVisible(false);
     imageList = new QList<Image*>();
 
     // Set scene
@@ -183,16 +184,13 @@ Menu* Menu::getInstance() {
 void Menu::on_addButton_clicked() {
     QString string = "";
     if (ui->nameEntry->displayText() != string && ui->authorEntry->displayText() != string && ui->dateEntry->displayText() != string){
-        qDebug() << "Entré";
+        // Selects image and adds it
         QString fileName = QFileDialog::getOpenFileName(this, tr("Select Image"), "/home/jana", tr("Image Files (*.jpeg *.jpg *.png *.heif *.bmp)"));
         addToGrid(fileName);
-        qDebug() << fileName;
-    }else{
-        qDebug() << "No se pudo agregar imagen";
+        ui->fillPromptLabel->setVisible(false);
+    }  else {
+        ui->fillPromptLabel->setVisible(true);
     }
-
-
-
 }
 
 void Menu::on_enterButton_clicked() {
