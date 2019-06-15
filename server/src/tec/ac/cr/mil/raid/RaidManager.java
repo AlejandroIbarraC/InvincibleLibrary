@@ -19,14 +19,13 @@ public class RaidManager {
         int length = ImageBytes.length;
         int fileSize = length/4;
         int fileCounter = 0;
-        int fileTotal = length/fileSize;
+        int fileTotal = 4;
         int currentDisk = 0;
         while (fileCounter < fileTotal){
             int begin = fileCounter * fileSize;
-            int end = (fileCounter + 1) * fileSize;
-            if (fileCounter != 0) end++;
-            if (fileCounter == fileTotal - 1) end = length;
-            byte[] partition = Arrays.copyOfRange(ImageBytes, begin, end);
+            int end = ((fileCounter + 1) * fileSize)+1;
+            if (fileCounter == fileTotal - 1) end = length+1;
+            byte[] partition = Arrays.copyOfRange(ImageBytes, begin, end-1);
             fillFile(partition, fileCounter, ImageName, currentDisk);
             if (currentDisk == 5) currentDisk = 0;
             currentDisk++;
@@ -103,6 +102,7 @@ public class RaidManager {
             y++;
             if(y==5)y=0;
             i++;
+            sum = 0;
         }
 
 
@@ -140,7 +140,7 @@ public class RaidManager {
             try {
                 Files.readAllBytes(path);
             } catch (IOException e) {
-                System.out.println("Needs Recovery");
+                System.out.println("Disk "+currentDisk+"needs Recovery");
                 Recovery(currentDisk);
             }
             currentDisk++;
@@ -155,13 +155,43 @@ public class RaidManager {
         }
     }
 
-    private static void recoverDisk(int diskToRecover){
+    private static void recoverDisk(int diskToRecover) throws IOException {
         Path path = Paths.get(diskPath + "\\d" + diskToRecover);
         createSecurityFile(path);
+        ArrayList<Picture> Images = Holder.pictureArrayList;
+        for (Picture image:Images) {
+            int fileSize = image.getSize()/4;
+            byte[] parityBytes = loadFile(diskPath+"\\d4\\"+image.getName()+"Parity.pdf");
+            byte[] bytesToRecover = new byte[fileSize];
+            byte[][] recoverMatrix = createRecoverMatriz(diskToRecover, image.getName(), image.getSize()/4);
+            for(int i=0; i<fileSize; i++){
+                byte ecuation = (byte)(parityBytes[i]-recoverMatrix[0][i]-recoverMatrix[1][i]-recoverMatrix[2][i]);
+                bytesToRecover[i] = ecuation;
+            }
+            fillFile(bytesToRecover,diskToRecover,image.getName(),diskToRecover);
+        }
     }
 
+    private static byte[][] createRecoverMatriz(int diskToRecover, String imageName, int fileSize){
+        byte[][] Response = new byte[3][fileSize];
+        int matrixCounter = 0;
+
+        for(int i=0; i<4; i++){
+            if(i==diskToRecover)i++;
+            Path path = Paths.get(diskPath + "\\d" + i + "\\" + imageName +i + ".pdf");
+            try {
+                byte[] bArray = Files.readAllBytes(path);
+                Response[matrixCounter]=bArray;
+                // reading content from byte array
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            matrixCounter++;
+        }
+        return Response;
+    }
     private static void recoverParity() {
-        ArrayList<Picture> Images = new ArrayList<>();
+        ArrayList<Picture> Images = Holder.pictureArrayList;
         Path path = Paths.get(diskPath + "\\d4\\");
         createSecurityFile(path);
         for (Picture Image : Images) {
@@ -177,18 +207,6 @@ public class RaidManager {
             fos.write(bytes);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private static void createParityFillRecovery(byte[] bytes, String fileName){
-        File file = new File(diskPath + "\\d4\\"  + fileName + "Parity.pdf");
-
-        try (FileOutputStream newFile = new FileOutputStream(file)) {
-            newFile.write(bytes);
-        }
-        catch(Exception ex)
-        {
-            ex.printStackTrace();
         }
     }
 
