@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class RaidManager {
 
     private static int parityPosition = 4;
-    private static String diskPath = "C:\\Users\\ramir\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\raid\\disks";
+    private static String diskPath = "C:\\Users\\Kevin Cordero Zúñiga\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\raid\\disks";
 
     public static void Write(byte[] ImageBytes, String ImageName) throws IOException {
         checkDisks();
@@ -161,7 +161,7 @@ public class RaidManager {
     }
 
     private static void recoverParity() {
-        ArrayList<Picture> Images = new ArrayList<>();
+        ArrayList<Picture> Images = Holder.pictureArrayList;
         Path path = Paths.get(diskPath + "\\d4\\");
         createSecurityFile(path);
         for (Picture Image : Images) {
