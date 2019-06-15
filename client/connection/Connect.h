@@ -11,21 +11,19 @@
 
 using namespace std;
 
-class Connect : public QObject{
-
-    Q_OBJECT
+class Connect{
 
 public:
 
     static Connect* getInstance();
 
-    const QString &getIp() const;
-    void setIp(const QString &ip);
+    const string &getIp() const;
+    void setIp(const string &ip);
 
     void insertPicture(Picture* picture);
     void deletePicture(Picture* picture);
     void updatePicture(Picture* picture);
-    QList<Picture>* selectPicture();
+    QList<Picture*> selectPictures();
 
 private:
 
@@ -35,7 +33,7 @@ private:
 
     static Connect* conector;
 
-    QString ip = "192.168.100.5";
+    string ip = "192.168.100.5";
 
 };
 
