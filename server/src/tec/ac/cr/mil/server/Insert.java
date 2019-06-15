@@ -1,6 +1,6 @@
 package tec.ac.cr.mil.server;
 
-import tec.ac.cr.mil.logic.DatabaseFacace;
+import tec.ac.cr.mil.logic.DatabaseFacade;
 import tec.ac.cr.mil.logic.Picture;
 
 import javax.ws.rs.Consumes;
@@ -16,7 +16,7 @@ public class Insert {
     @Consumes(MediaType.APPLICATION_JSON)
     public void addPicture(Picture picture) throws IOException {
         System.out.println(2);
-        DatabaseFacace.INSERT(picture);
+        DatabaseFacade.INSERT(picture);
     }
 
 }

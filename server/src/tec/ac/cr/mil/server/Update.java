@@ -1,6 +1,6 @@
 package tec.ac.cr.mil.server;
 
-import tec.ac.cr.mil.logic.DatabaseFacace;
+import tec.ac.cr.mil.logic.DatabaseFacade;
 import tec.ac.cr.mil.logic.Picture;
 
 import javax.ws.rs.Consumes;
@@ -16,7 +16,7 @@ public class Update {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updatePicture(Picture picture) throws IOException {
         System.out.println(3);
-        DatabaseFacace.UPDATE(picture);
+        DatabaseFacade.UPDATE(picture);
     }
 
 }
