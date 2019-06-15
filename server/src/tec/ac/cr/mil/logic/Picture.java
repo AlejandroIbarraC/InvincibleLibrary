@@ -11,6 +11,7 @@ public class Picture {
         this.id = 0;
         this.size = 0;
         this.description = "";
+        this.pictureData = "";
     }
 
     private String name;

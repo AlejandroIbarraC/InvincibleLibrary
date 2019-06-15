@@ -1,9 +1,11 @@
 package tec.ac.cr.mil.logic;
 
+import tec.ac.cr.mil.ml.ObjectRecognizer;
 import tec.ac.cr.mil.raid.RaidFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 import static tec.ac.cr.mil.logic.Holder.pictureArrayList;
 
@@ -12,7 +14,9 @@ public class DatabaseFacade {
     public static void INSERT(Picture picture) throws IOException {
         Serializer.deserialize();
         picture.setId(getFreeID());
+        byte[] decodedString = Base64.getDecoder().decode(new String(picture.getPictureData()).getBytes("UTF-8"));
         byte[] pictureBytes = picture.getPictureData().getBytes();
+        picture.setDescription(ObjectRecognizer.getInstance().getDescription(decodedString));
         picture.setSize(pictureBytes.length);
         RaidFacade.addImage(picture.getPictureData(), picture.getName());
         picture.setPictureData("");

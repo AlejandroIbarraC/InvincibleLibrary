@@ -19,6 +19,7 @@
 #include <QTimer>
 #include <string>
 
+#include "../connection/Connect.h"
 #include "elements/buttonhoverwatcher.h"
 #include "elements/image.h"
 
@@ -54,16 +55,19 @@ private:
     QTimer* deletionTimer;
     bool hasEntered = false;
     int gridCount = 0;
+    QList<Image*>* imageList;
     int imgDimX  = 53;
     int imgDimY = 40;
     static Menu* menu;
     QGraphicsScene* scene;
 
-    void addToGrid(QUrl url);
-    QList<Image*>* imageList;
+    void addToGrid(QImage image, QString name);
+    void addToServer(QString name, QString author, QString date, QString pictureData);
+    void deletePicture(QString name);
     void initializeGrid();
     QString pictureToString(QImage image);
     QPixmap* stringToPixmap(QString base64Image);
+    void updatePicture(QString name);
 
 };
 

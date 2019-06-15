@@ -15,7 +15,7 @@ public:
 
     Picture() = default;
 
-    Picture(string name, string author, int year, string pictureData){
+    Picture(string name, string author, int year, string pictureData) {
         this->name = name;
         this->author = author;
         this->year = year;
@@ -41,7 +41,7 @@ public:
     void setDescription(const string &description);
 
     string serialize();
-    void deserialize(string jsonPicture);
+    void deserialize(QJsonObject jsonObject);
 
 private:
 
