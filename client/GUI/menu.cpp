@@ -115,14 +115,13 @@ void Menu::deletePicture(QString name) {
 
     // Find picture by name
     Picture* picture = new Picture();
-    QList<Picture>* pictureList = connect->selectPicture();
-    for (int i = 0; i < pictureList->length(); i++) {
-        Picture currentPicture = pictureList->at(i);
-        if (QString::fromStdString(currentPicture.getName()) == name) {
-            picture = &currentPicture;
+    QList<Picture*> pictureList = connect->selectPictures();
+    for (int i = 0; i < pictureList.length(); i++) {
+        Picture* currentPicture = pictureList.at(i);
+        if (QString::fromStdString(currentPicture->getName()) == name) {
+            picture = currentPicture;
         }
     }
-
     connect->deletePicture(picture);
 }
 
@@ -313,11 +312,11 @@ void Menu::updatePicture(QString name) {
 
     // Find picture by name
     Picture* picture = new Picture();
-    QList<Picture>* pictureList = connect->selectPicture();
-    for (int i = 0; i < pictureList->length(); i++) {
-        Picture currentPicture = pictureList->at(i);
-        if (QString::fromStdString(currentPicture.getName()) == name) {
-            picture = &currentPicture;
+    QList<Picture*> pictureList = connect->selectPictures();
+    for (int i = 0; i < pictureList.length(); i++) {
+        Picture* currentPicture = pictureList.at(i);
+        if (QString::fromStdString(currentPicture->getName()) == name) {
+            picture = currentPicture;
         }
     }
 
