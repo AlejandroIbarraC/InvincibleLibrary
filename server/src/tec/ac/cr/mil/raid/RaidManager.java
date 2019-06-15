@@ -2,9 +2,7 @@ package tec.ac.cr.mil.raid;
 import tec.ac.cr.mil.logic.Holder;
 import tec.ac.cr.mil.logic.Picture;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +12,7 @@ import java.util.Arrays;
 public class RaidManager {
 
     private static int parityPosition = 4;
-    private static String diskPath = "C:\\Users\\Kevin Cordero Zúñiga\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\raid\\disks";
+    private static String diskPath = "C:\\Users\\ramir\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\raid\\disks";
 
     public static void Write(byte[] ImageBytes, String ImageName) throws IOException {
         checkDisks();
@@ -38,12 +36,12 @@ public class RaidManager {
 
     }
 
-    public static byte[] Read(int size, String Name){
+    public static byte[] Read(int size, String Name) throws IOException {
         checkDisks();
         byte[] FileBytes = new byte[size];
-        int stripSize = size/5;
+        int stripSize = size/4;
         int currentDisk = 0;
-        int totalPartitions = size/stripSize;
+        int totalPartitions = 4;
         int counter = 0;
 
         while (counter < totalPartitions){
@@ -62,7 +60,7 @@ public class RaidManager {
         return FileBytes;
     }
 
-    public static void Seek() {
+    public static void Seek() throws IOException {
         checkDisks();
     }
 
@@ -93,12 +91,11 @@ public class RaidManager {
     private static byte[] calcByteArrayParity(int size, String fileName, int disk){
         byte[] Response = new byte[size];
         byte[][] BytesMatrix = calcByteMatrix(size, fileName, disk);
-       // System.out.println(BytesMatrix[2][107]);
         int i = 0;
         int y = 0;
         int sum = 0;
         while(i<size){
-            while (y<4 && y!=parityPosition){
+            while (y<4){
                 sum = sum + BytesMatrix[y][i];
                 y++;
             }
@@ -134,7 +131,7 @@ public class RaidManager {
         return Response;
     }
 
-    public static void checkDisks(){
+    public static void checkDisks() throws IOException {
         int currentDisk = 0;
         Path path;
 
@@ -150,7 +147,7 @@ public class RaidManager {
         }
     }
 
-    private static void Recovery(int diskToRecover){
+    private static void Recovery(int diskToRecover) throws IOException {
         if(diskToRecover == 4){
             recoverParity();
         }else{
@@ -163,21 +160,12 @@ public class RaidManager {
         createSecurityFile(path);
     }
 
-    private static void recoverParity(){
-        ArrayList<String> ImagesNames = getImagesNames();
-        int imagesLenght = ImagesNames.size();
-        Path path = Paths.get(diskPath + "\\d4");
-        Path pathDisk0 = Paths.get(diskPath + "\\d0");
-        Path pathDisk1 = Paths.get(diskPath + "\\d1");
-        Path pathDisk2 = Paths.get(diskPath + "\\d2");
-        Path pathDisk3 = Paths.get(diskPath + "\\d3");
-        byte[] BytesDisk0;
-        byte[] BytesDisk1;
-        byte[] BytesDisk2;
-        byte[] BytesDisk3;
+    private static void recoverParity() {
+        ArrayList<Picture> Images = new ArrayList<>();
+        Path path = Paths.get(diskPath + "\\d4\\");
         createSecurityFile(path);
-        for (int i = 0; i <imagesLenght; i++){
-
+        for (Picture Image : Images) {
+            calcParity(Image.getSize() / 4, Image.getName(), 4);
         }
     }
 
@@ -189,6 +177,18 @@ public class RaidManager {
             fos.write(bytes);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void createParityFillRecovery(byte[] bytes, String fileName){
+        File file = new File(diskPath + "\\d4\\"  + fileName + "Parity.pdf");
+
+        try (FileOutputStream newFile = new FileOutputStream(file)) {
+            newFile.write(bytes);
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
         }
     }
 
@@ -208,13 +208,33 @@ public class RaidManager {
         }
     }
 
-    private static ArrayList<String> getImagesNames(){
-        ArrayList<Picture> picturesArray = Holder.pictureArrayList;
-        ArrayList<String> imagesNames = new ArrayList<String>();
-        for (Picture aPicturesArray : picturesArray) {
-            imagesNames.add(aPicturesArray.getName());
+    private static byte[] readFully(InputStream stream) throws IOException
+    {
+        byte[] buffer = new byte[8192];
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        int bytesRead;
+        while ((bytesRead = stream.read(buffer)) != -1)
+        {
+            baos.write(buffer, 0, bytesRead);
         }
-        return imagesNames;
+        return baos.toByteArray();
+    }
+    private static byte[] loadFile(String sourcePath) throws IOException
+    {
+        InputStream inputStream = null;
+        try
+        {
+            inputStream = new FileInputStream(sourcePath);
+            return readFully(inputStream);
+        }
+        finally
+        {
+            if (inputStream != null)
+            {
+                inputStream.close();
+            }
+        }
     }
 
 }

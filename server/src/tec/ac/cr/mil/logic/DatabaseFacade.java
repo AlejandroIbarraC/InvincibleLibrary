@@ -44,7 +44,7 @@ public class DatabaseFacade {
         Serializer.serialize();
     }
 
-    public static ArrayList<Picture> SELECT(){
+    public static ArrayList<Picture> SELECT() throws IOException {
         Serializer.deserialize();
         getAllPicturesData();
         return pictureArrayList;
@@ -73,7 +73,7 @@ public class DatabaseFacade {
         return null;
     }
 
-    private static void getAllPicturesData(){
+    private static void getAllPicturesData() throws IOException {
         for (int i = 0; i < pictureArrayList.size(); i++){
             Picture picture = pictureArrayList.get(i);
             String name = picture.getName();
