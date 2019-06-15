@@ -47,6 +47,7 @@ private slots:
     void deleteBackground();
     void on_addButton_clicked();
     void on_enterButton_clicked();
+    void on_refreshButton_clicked();
 
 private:
     Ui::Menu* ui;

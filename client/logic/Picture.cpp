@@ -54,6 +54,14 @@ void Picture::setId(int id) {
     Picture::id = id;
 }
 
+const string &Picture::getDescription() const {
+    return description;
+}
+
+void Picture::setDescription(const string &description) {
+    Picture::description = description;
+}
+
 string Picture::serialize() {
     QJsonObject jsonObject;
     jsonObject["name"] = QString::fromStdString(name);
@@ -62,6 +70,7 @@ string Picture::serialize() {
     jsonObject["pictureData"] = QString::fromStdString(pictureData);
     jsonObject["size"] = size;
     jsonObject["id"] = id;
+    jsonObject["description"] = QString::fromStdString(description);
     QJsonDocument jsonDocument(jsonObject);
     QByteArray byteArray = jsonDocument.toJson();
     QString qString = QString(byteArray);
@@ -78,4 +87,5 @@ void Picture::deserialize(string jsonPicture) {
     pictureData = (jsonObject["pictureData"].toString().toUtf8().constData());
     size = jsonDocument["size"].toInt();
     id = jsonObject["id"].toInt();
+    description = jsonObject["description"].toString().toUtf8().constData();
 }
