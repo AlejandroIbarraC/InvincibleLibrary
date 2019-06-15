@@ -12,9 +12,11 @@ public:
     Image(QObject* parent = nullptr);
     QRect geometry() const;
     int getID();
+    QString getName();
     QPixmap* getPixmap();
     void setGeometry(const QRect &value);
     void setID(int nID);
+    void setName(QString nName);
     void setPixmap(QPixmap* nPixmap);
 
 protected:
@@ -22,6 +24,7 @@ protected:
 
 private:
     int id;
+    QString name;
     QPixmap* pixmap;
     QRect rect;
 
