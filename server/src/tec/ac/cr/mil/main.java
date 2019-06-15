@@ -1,15 +1,8 @@
 package tec.ac.cr.mil;
 
-import tec.ac.cr.mil.logic.DatabaseFacace;
-import tec.ac.cr.mil.logic.Picture;
-import tec.ac.cr.mil.raid.RaidManager;
-import tec.ac.cr.mil.ml.ObjectRecognizer;
+import tec.ac.cr.mil.logic.Serializer;
 
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.io.IOException;
-
-import static tec.ac.cr.mil.logic.Holder.pictureArrayList;
 
 public class main {
 
@@ -28,13 +21,16 @@ public class main {
 
         // Object recognition using Machine Learning:
 
-//        ObjectRecognizer r = new ObjectRecognizer();
-//        File loadedImg = new File( "." + File.separator + "server" +
-//                File.separator + "src" + File.separator + "tec" +
-//                File.separator + "ac" + File.separator + "cr" +
-//                File.separator + "mil" + File.separator + "testresources" +
-//                File.separator + "apple.jpeg");
-//        r.recognize(loadedImg);
+       /* ObjectRecognizer r = new ObjectRecognizer();
+        File loadedImg = new File( "." + File.separator + "server" +
+                File.separator + "src" + File.separator + "tec" +
+                File.separator + "ac" + File.separator + "cr" +
+                File.separator + "mil" + File.separator + "testresources" +
+                File.separator + "apple.jpeg");
+        String description = r.getDescription(loadedImg);
+        System.out.println(description);*/
+
+
 
     }
 

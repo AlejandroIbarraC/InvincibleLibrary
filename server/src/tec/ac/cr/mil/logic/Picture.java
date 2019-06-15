@@ -10,12 +10,14 @@ public class Picture {
         this.year = year;
         this.id = 0;
         this.size = 0;
+        this.description = "";
     }
 
     private String name;
     private String author;
     private int year;
     private int size;
+    private String description;
     private String pictureData;
     private int id;
 
@@ -65,5 +67,13 @@ public class Picture {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

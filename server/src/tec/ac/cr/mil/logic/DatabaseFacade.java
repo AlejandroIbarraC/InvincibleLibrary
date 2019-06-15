@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static tec.ac.cr.mil.logic.Holder.pictureArrayList;
 
-public class DatabaseFacace {
+public class DatabaseFacade {
 
     public static void INSERT(Picture picture) throws IOException {
         Serializer.deserialize();
@@ -34,6 +34,7 @@ public class DatabaseFacace {
         Serializer.deserialize();
         Picture toRMPicture = getOldPicture(picture.getId());
         if (toRMPicture != null){
+            picture.setPictureData(RaidFacade.readImage(toRMPicture.getSize(), toRMPicture.getName()));
             RaidFacade.deleteImage(toRMPicture.getName());
             RaidFacade.addImage(picture.getPictureData(), picture.getName());
             pictureArrayList.remove(toRMPicture);

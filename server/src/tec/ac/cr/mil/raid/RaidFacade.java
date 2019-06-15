@@ -16,7 +16,7 @@ public class RaidFacade {
 
     public static String readImage(int imageSize, String imageName){
         byte[] bytes = RaidManager.Read(imageSize, imageName);
-        String imageString = Arrays.toString(bytes);
+        String imageString = new String(bytes);
         return imageString;
     }
 
