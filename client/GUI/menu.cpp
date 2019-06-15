@@ -132,6 +132,7 @@ void Menu::dropEvent(QDropEvent* e) {
                 if (info.exists()) {
                     if (accepted_types.contains(info.suffix().trimmed(), Qt::CaseInsensitive)) {
                         addToGrid(url);
+                        ui->fillPromptLabel->setVisible(false);
                     }
                 }
             }
@@ -163,6 +164,7 @@ void Menu::initializeGrid() {
             image->setRect(x, y, imgDimX, imgDimY);
             image->setBrush(QBrush(Qt::red));
             image->setID(id);
+            image->setVisible(false);
             scene->addItem(image);
             x += 80;
             imageList->append(image);
@@ -182,8 +184,8 @@ Menu* Menu::getInstance() {
 }
 
 void Menu::on_addButton_clicked() {
-    QString string = "";
-    if (ui->nameEntry->displayText() != string && ui->authorEntry->displayText() != string && ui->dateEntry->displayText() != string){
+    QString emptyString = "";
+    if (ui->nameEntry->displayText() != emptyString && ui->authorEntry->displayText() != emptyString && ui->dateEntry->displayText() != emptyString){
         // Selects image and adds it
         QString fileName = QFileDialog::getOpenFileName(this, tr("Select Image"), "/home/jana", tr("Image Files (*.jpeg *.jpg *.png *.heif *.bmp)"));
         addToGrid(fileName);
