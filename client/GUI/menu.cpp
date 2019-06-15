@@ -22,7 +22,7 @@ Menu::Menu(QWidget *parent) :
     // Initalize default parameters
     ui->setupUi(this);
     setAcceptDrops(true);
-    ui->mainLogo->setGeometry(QRect(450, 100, 200, 200));
+    ui->mainLogo->setGeometry(QRect(525, 100, 200, 200));
     ui->welcomeLabel->setVisible(false);
     ui->copyBackground->setVisible(false);
     ui->dropIcon->setVisible(false);
