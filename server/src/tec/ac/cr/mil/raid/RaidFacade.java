@@ -14,7 +14,7 @@ public class RaidFacade {
         RaidManager.deleteImage(imageName);
     }
 
-    public static String readImage(int imageSize, String imageName){
+    public static String readImage(int imageSize, String imageName) throws IOException {
         byte[] bytes = RaidManager.Read(imageSize, imageName);
         String imageString = new String(bytes);
         return imageString;
