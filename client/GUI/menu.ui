@@ -161,14 +161,14 @@
      <rect>
       <x>140</x>
       <y>40</y>
-      <width>221</width>
+      <width>331</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>SF Pro Rounded</family>
-      <pointsize>32</pointsize>
+      <pointsize>40</pointsize>
      </font>
     </property>
     <property name="styleSheet">
