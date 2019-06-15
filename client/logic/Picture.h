@@ -41,7 +41,7 @@ public:
     void setDescription(const string &description);
 
     string serialize();
-    void deserialize(string jsonPicture);
+    void deserialize(QJsonObject jsonObject);
 
 private:
 
