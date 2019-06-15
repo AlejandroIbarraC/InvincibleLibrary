@@ -3,7 +3,9 @@
 #include "../menu.h"
 
 Image::Image(QObject* parent) : QObject (parent) {
+    // Initialize default attributes
     pixmap = new QPixmap();
+    name = "";
 }
 
 QRect Image::geometry() const {

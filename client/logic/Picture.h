@@ -15,7 +15,7 @@ public:
 
     Picture() = default;
 
-    Picture(string name, string author, int year, string pictureData){
+    Picture(string name, string author, int year, string pictureData) {
         this->name = name;
         this->author = author;
         this->year = year;
