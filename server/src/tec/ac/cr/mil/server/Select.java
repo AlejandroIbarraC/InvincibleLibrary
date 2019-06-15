@@ -1,6 +1,6 @@
 package tec.ac.cr.mil.server;
 
-import tec.ac.cr.mil.logic.DatabaseFacace;
+import tec.ac.cr.mil.logic.DatabaseFacade;
 import tec.ac.cr.mil.logic.Picture;
 
 import javax.ws.rs.*;
@@ -15,7 +15,7 @@ public class Select {
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Picture> getAllPictures(){
         System.out.println(5);
-        return DatabaseFacace.SELECT();
+        return DatabaseFacade.SELECT();
     }
 
 }
