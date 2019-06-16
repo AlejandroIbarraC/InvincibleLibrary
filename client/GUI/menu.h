@@ -49,8 +49,10 @@ protected:
 private slots:
     void deleteBackground();
     void on_addButton_clicked();
+    void on_editButton_clicked();
     void on_enterButton_clicked();
     void on_refreshButton_clicked();
+    void on_trashButton_clicked();
 
 private:
     Ui::Menu* ui;
@@ -58,8 +60,8 @@ private:
     bool hasEntered = false;
     int gridCount = 0;
     QList<Image*>* imageList;
-    int imgDimX  = 53;
-    int imgDimY = 40;
+    int imgDimX  = 50;
+    int imgDimY = 50;
     static Menu* menu;
     QGraphicsScene* scene;
 
@@ -69,6 +71,7 @@ private:
     void initializeGrid();
     QString pictureToString(QImage image);
     QPixmap* stringToPixmap(QString base64Image);
+    void updateGrid();
     void updatePicture(QString name);
 
 };

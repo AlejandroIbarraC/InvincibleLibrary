@@ -10,6 +10,8 @@ class Image : public QObject, public QGraphicsRectItem {
 
 public:
     Image(QObject* parent = nullptr);
+    QRect rect;
+
     QRect geometry() const;
     int getID();
     QString getName();
@@ -26,7 +28,6 @@ private:
     int id;
     QString name;
     QPixmap* pixmap;
-    QRect rect;
 
 };
 

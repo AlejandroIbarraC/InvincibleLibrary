@@ -43,9 +43,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>50</y>
+      <y>10</y>
       <width>1271</width>
-      <height>701</height>
+      <height>741</height>
      </rect>
     </property>
     <property name="font">
@@ -90,7 +90,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>510</y>
+      <y>580</y>
       <width>65</width>
       <height>65</height>
      </rect>
@@ -287,7 +287,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>310</y>
+      <y>330</y>
       <width>113</width>
       <height>26</height>
      </rect>
@@ -297,7 +297,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>410</y>
+      <y>440</y>
       <width>113</width>
       <height>26</height>
      </rect>
@@ -333,7 +333,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>280</y>
+      <y>300</y>
       <width>74</width>
       <height>18</height>
      </rect>
@@ -349,7 +349,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>380</y>
+      <y>410</y>
       <width>74</width>
       <height>18</height>
      </rect>
@@ -364,8 +364,8 @@
    <widget class="QPushButton" name="refreshButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>590</y>
+      <x>550</x>
+      <y>40</y>
       <width>65</width>
       <height>65</height>
      </rect>
@@ -391,10 +391,17 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>460</y>
-      <width>151</width>
+      <y>520</y>
+      <width>161</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Display</family>
+      <pointsize>14</pointsize>
+      <italic>true</italic>
+     </font>
     </property>
     <property name="styleSheet">
      <string notr="true">color:red</string>
@@ -436,8 +443,8 @@
    <widget class="QLabel" name="selectedImageLabel">
     <property name="geometry">
      <rect>
-      <x>1120</x>
-      <y>150</y>
+      <x>1110</x>
+      <y>190</y>
       <width>74</width>
       <height>18</height>
      </rect>
@@ -450,7 +457,7 @@
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>240</y>
+      <y>320</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -472,7 +479,7 @@
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>340</y>
+      <y>410</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -494,7 +501,7 @@
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>450</y>
+      <y>500</y>
       <width>101</width>
       <height>21</height>
      </rect>
@@ -516,7 +523,7 @@
     <property name="geometry">
      <rect>
       <x>1060</x>
-      <y>560</y>
+      <y>590</y>
       <width>111</width>
       <height>21</height>
      </rect>
@@ -538,7 +545,7 @@
     <property name="geometry">
      <rect>
       <x>1090</x>
-      <y>280</y>
+      <y>360</y>
       <width>141</width>
       <height>20</height>
      </rect>
@@ -560,7 +567,7 @@
     <property name="geometry">
      <rect>
       <x>1090</x>
-      <y>390</y>
+      <y>460</y>
       <width>141</width>
       <height>20</height>
      </rect>
@@ -582,7 +589,7 @@
     <property name="geometry">
      <rect>
       <x>1090</x>
-      <y>500</y>
+      <y>540</y>
       <width>141</width>
       <height>20</height>
      </rect>
@@ -603,8 +610,8 @@
    <widget class="QLabel" name="descriptionDisplay">
     <property name="geometry">
      <rect>
-      <x>1090</x>
-      <y>620</y>
+      <x>1100</x>
+      <y>630</y>
       <width>141</width>
       <height>20</height>
      </rect>
@@ -620,6 +627,81 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="editButton">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>40</y>
+      <width>65</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 0</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="assets/resources.qrc">
+      <normaloff>:/main/buttons/buttons/editButton.png</normaloff>:/main/buttons/buttons/editButton.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="trashButton">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>40</y>
+      <width>65</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 0</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="assets/resources.qrc">
+      <normaloff>:/main/buttons/buttons/trashButton.png</normaloff>:/main/buttons/buttons/trashButton.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>64</width>
+      <height>64</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="selectPromptLabel">
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>10</y>
+      <width>231</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Display</family>
+      <pointsize>16</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: red</string>
+    </property>
+    <property name="text">
+     <string>Please select a picture</string>
     </property>
    </widget>
    <zorder>dropLabel</zorder>
@@ -650,6 +732,9 @@
    <zorder>authorDisplay</zorder>
    <zorder>dateDisplay</zorder>
    <zorder>descriptionDisplay</zorder>
+   <zorder>editButton</zorder>
+   <zorder>trashButton</zorder>
+   <zorder>selectPromptLabel</zorder>
   </widget>
  </widget>
  <resources>

@@ -28,6 +28,7 @@ Menu::Menu(QWidget *parent) :
     ui->dropIcon->setVisible(false);
     ui->dropLabel->setVisible(false);
     ui->fillPromptLabel->setVisible(false);
+    ui->selectPromptLabel->setVisible(false);
     imageList = new QList<Image*>();
 
     // Set scene
@@ -42,11 +43,15 @@ Menu::Menu(QWidget *parent) :
 
     // Button hover watchers
     ButtonHoverWatcher* addWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/addButton.png",":/main/buttons/buttons/addButton_hovered.png");
+    ButtonHoverWatcher* editWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/editButton.png",":/main/buttons/buttons/editButton_hovered.png");
     ButtonHoverWatcher* enterWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/enterButton.png",":/main/buttons/buttons/enterButton_hovered.png");
     ButtonHoverWatcher* refreshWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/refreshButton.png",":/main/buttons/buttons/refreshButton_hovered.png");
+    ButtonHoverWatcher* trashWatcher = new ButtonHoverWatcher(this, ":/main/buttons/buttons/trashButton.png",":/main/buttons/buttons/trashButton_hovered.png");
     ui->addButton->installEventFilter(addWatcher);
+    ui->editButton->installEventFilter(editWatcher);
     ui->enterButton->installEventFilter(enterWatcher);
     ui->refreshButton->installEventFilter(refreshWatcher);
+    ui->trashButton->installEventFilter(trashWatcher);
 
     // Animation timers
     deletionTimer = new QTimer(this);
@@ -63,13 +68,13 @@ void Menu::addToGrid(QImage image, QString name) {
     // Create pixmap and scale it
     QPixmap* pixmap = new QPixmap();
     pixmap->convertFromImage(image);
-    QPixmap rPix = pixmap->scaled(53, 40);
+    QPixmap rPix = pixmap->scaled(imgDimX, imgDimY, Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
 
     // Assign pixmap to image
     Image* currentImage = imageList->at(gridCount);
+    currentImage->setBrush(rPix);
     currentImage->setVisible(true);
     currentImage->setPixmap(pixmap);
-    currentImage->setBrush(rPix);
     currentImage->setName(name);
     gridCount++;
 }
@@ -169,7 +174,7 @@ void Menu::dropEvent(QDropEvent* e) {
                         QImage image(url.path());
                         addToGrid(image, name);
                         QString base64Image = pictureToString(image);
-                        addToServer(name, author, date, base64Image);
+                        //addToServer(name, author, date, base64Image);
                         ui->fillPromptLabel->setVisible(false);
                         ui->authorEntry->setText("");
                         ui->dateEntry->setText("");
@@ -205,6 +210,7 @@ void Menu::initializeGrid() {
             image->setBrush(QBrush(Qt::red));
             image->setID(id);
             image->setVisible(false);
+            image->setPen(Qt::NoPen);
             scene->addItem(image);
             x += 80;
             imageList->append(image);
@@ -244,6 +250,16 @@ void Menu::on_addButton_clicked() {
     }
 }
 
+void Menu::on_editButton_clicked() {
+    QString nameToEdit = ui->nameDisplay->text();
+    if (nameToEdit != "") {
+        updatePicture(nameToEdit);
+        ui->selectPromptLabel->setVisible(false);
+    } else {
+        ui->selectPromptLabel->setVisible(true);
+    }
+}
+
 void Menu::on_enterButton_clicked() {
     // Fade out window
     QGraphicsOpacityEffect *fade = new QGraphicsOpacityEffect(this);
@@ -271,7 +287,17 @@ void Menu::on_enterButton_clicked() {
 }
 
 void Menu::on_refreshButton_clicked() {
-    qDebug() << "refresh button clicked";
+    updateGrid();
+}
+
+void Menu::on_trashButton_clicked() {
+    QString nameToDelete = ui->nameDisplay->text();
+    if (nameToDelete != "") {
+        updatePicture(nameToDelete);
+        ui->selectPromptLabel->setVisible(false);
+    } else {
+        ui->selectPromptLabel->setVisible(true);
+    }
 }
 
 //! Encodes photo in Base64 QString
@@ -305,31 +331,58 @@ QPixmap* Menu::stringToPixmap(QString base64Image) {
     return pixmap;
 }
 
-//! Updates picture in server
-void Menu::updatePicture(QString name) {
+//! Updates whole grid
+void Menu::updateGrid() {
     // Connect to server
     Connect* connect = Connect::getInstance();
+    QList<Picture*> pictures = connect->selectPictures();
+    gridCount = 0;
 
-    // Find picture by name
-    Picture* picture = new Picture();
-    QList<Picture*> pictureList = connect->selectPictures();
-    for (int i = 0; i < pictureList.length(); i++) {
-        Picture* currentPicture = pictureList.at(i);
-        if (QString::fromStdString(currentPicture->getName()) == name) {
-            picture = currentPicture;
-        }
+    // Disable all UI image squares
+    for (int i = 0; i < imageList->length(); i++) {
+        imageList->at(i)->setVisible(false);
     }
 
-    // Update data from entries
+    // Update name and pixmap in UI
+    for (int i = 0; i < pictures.length(); i++) {
+        Picture* currentPicture = pictures.at(i);
+        QPixmap* pixmap = stringToPixmap(QString::fromStdString(currentPicture->getPictureData()));
+        QImage image (pixmap->toImage());
+        addToGrid(image, QString::fromStdString(currentPicture->getName()));
+    }
+}
+
+//! Updates picture in server
+void Menu::updatePicture(QString name) {
     QString updatedName = ui->nameEntry->displayText();
     QString updatedAuthor = ui->authorEntry->displayText();
     QString updatedDate = ui->dateEntry->displayText();
-    picture->setName(updatedName.toStdString());
-    picture->setAuthor(updatedAuthor.toStdString());
-    picture->setYear(updatedDate.toInt());
 
-    // Send picture back to server
-    connect->updatePicture(picture);
+    if (updatedAuthor != "" && updatedDate != "" && updatedName != "") {
+        // Connect to server
+        Connect* connect = Connect::getInstance();
+
+        // Find picture by name
+        Picture* picture = new Picture();
+        QList<Picture*> pictureList = connect->selectPictures();
+        for (int i = 0; i < pictureList.length(); i++) {
+            Picture* currentPicture = pictureList.at(i);
+            if (QString::fromStdString(currentPicture->getName()) == name) {
+                picture = currentPicture;
+            }
+        }
+
+        // Update data from entries
+        picture->setName(updatedName.toStdString());
+        picture->setAuthor(updatedAuthor.toStdString());
+        picture->setYear(updatedDate.toInt());
+
+        // Send picture back to server
+        connect->updatePicture(picture);
+        ui->fillPromptLabel->setVisible(false);
+    } else {
+        ui->fillPromptLabel->setVisible(true);
+    }
 }
 
 void Menu::setLabels(QString name) {
