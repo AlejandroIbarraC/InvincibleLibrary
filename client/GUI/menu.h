@@ -38,6 +38,8 @@ public:
     QList<Image*>* getImageList();
     static Menu* getInstance();
     void raiseImage(Image* image);
+    void setLabels(QString name);
+
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);

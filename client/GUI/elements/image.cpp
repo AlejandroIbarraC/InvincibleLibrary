@@ -27,7 +27,9 @@ QPixmap* Image::getPixmap() {
 void Image::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         Menu* menu = Menu::getInstance();
         menu->raiseImage(this);
+        menu->setLabels(this->getName());
         this->setBrush(Qt::yellow);
+
 }
 
 void Image::setGeometry(const QRect &value) {

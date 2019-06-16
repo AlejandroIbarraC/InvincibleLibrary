@@ -331,3 +331,24 @@ void Menu::updatePicture(QString name) {
     // Send picture back to server
     connect->updatePicture(picture);
 }
+
+void Menu::setLabels(QString name) {
+    Connect* connect = Connect::getInstance();
+    QList<Picture*> pictureList = connect->selectPictures();
+    for (int i = 0; i < pictureList.length(); i++) {
+        if (QString::fromStdString(pictureList.at(i)->getName()) == name){
+
+            ui->nameDisplay->setText(QString::fromStdString(pictureList.at(i)->getName()));
+
+            ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
+
+            int year = pictureList.at(i)->getYear();
+            QString date = QString::number(year);
+            ui->dateDisplay->setText(date);
+
+            ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
+
+        }
+
+    }
+}
