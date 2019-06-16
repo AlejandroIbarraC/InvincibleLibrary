@@ -15,11 +15,21 @@ import java.util.List;
 
 public class ObjectRecognizer {
 
+    private ObjectRecognizer(){}
+
+    public static ObjectRecognizer getInstance(){
+        if (objectRecognizer == null){
+            objectRecognizer = new ObjectRecognizer();
+        }
+        return objectRecognizer;
+    }
+
+    private static ObjectRecognizer objectRecognizer = null;
+
     byte[] graphDef;
     String imagepath;
     List<String> labels;
     String modelpath;
-
 
     private static float[] executeInceptionGraph(byte[] graphDef, Tensor image) {
         try (Graph graph = new Graph()) {
@@ -73,11 +83,7 @@ public class ObjectRecognizer {
 
     public String getDescription(byte[] imageBytes) {
         // Define ML model
-        File file = new File("." + File.separator + "server" +
-                File.separator + "src" + File.separator + "tec" +
-                File.separator + "ac" + File.separator + "cr" +
-                File.separator + "mil" + File.separator + "ml" +
-                File.separator + "model");
+        File file = new File("C:\\Users\\Kevin Cordero Zúñiga\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\ml\\model");
         modelpath = file.getAbsolutePath();
         graphDef = ObjectRecognizer.readBytes(Paths.get(modelpath,"tensorflow_inception_graph.pb"));
         labels = ObjectRecognizer.readLines(Paths.get(modelpath, "imagenet_comp_graph_label_strings.txt"));

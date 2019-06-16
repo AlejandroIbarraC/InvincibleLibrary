@@ -78,14 +78,12 @@ string Picture::serialize() {
     return json;
 }
 
-void Picture::deserialize(string jsonPicture) {
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(QByteArray(jsonPicture.c_str()));
-    QJsonObject jsonObject = jsonDocument.object();
+void Picture::deserialize(QJsonObject jsonObject) {
     name = (jsonObject["name"].toString().toUtf8().constData());
     author = (jsonObject["author"].toString().toUtf8().constData());
-    year = jsonDocument["year"].toInt();
+    year = jsonObject["year"].toInt();
     pictureData = (jsonObject["pictureData"].toString().toUtf8().constData());
-    size = jsonDocument["size"].toInt();
+    size = jsonObject["size"].toInt();
     id = jsonObject["id"].toInt();
     description = jsonObject["description"].toString().toUtf8().constData();
 }

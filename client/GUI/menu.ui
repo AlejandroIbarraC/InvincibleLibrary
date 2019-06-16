@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
+    <width>1300</width>
     <height>700</height>
    </rect>
   </property>
@@ -21,12 +21,30 @@
    <string notr="true">background-color: white</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1300</width>
+     <height>700</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1300</width>
+     <height>700</height>
+    </size>
+   </property>
    <widget class="QLabel" name="invincibleLabel">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>50</y>
-      <width>1101</width>
+      <width>1271</width>
       <height>701</height>
      </rect>
     </property>
@@ -97,7 +115,7 @@
    <widget class="QLabel" name="creditsLabel">
     <property name="geometry">
      <rect>
-      <x>940</x>
+      <x>1140</x>
       <y>670</y>
       <width>151</width>
       <height>21</height>
@@ -110,7 +128,7 @@
    <widget class="QPushButton" name="enterButton">
     <property name="geometry">
      <rect>
-      <x>485</x>
+      <x>570</x>
       <y>480</y>
       <width>111</width>
       <height>51</height>
@@ -143,13 +161,14 @@
      <rect>
       <x>140</x>
       <y>40</y>
-      <width>201</width>
+      <width>331</width>
       <height>51</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>31</pointsize>
+      <family>SF Pro Rounded</family>
+      <pointsize>40</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -163,9 +182,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>1091</width>
-      <height>691</height>
+      <y>-10</y>
+      <width>1311</width>
+      <height>701</height>
      </rect>
     </property>
     <property name="text">
@@ -181,7 +200,7 @@
    <widget class="QLabel" name="dropIcon">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>550</x>
       <y>220</y>
       <width>121</width>
       <height>121</height>
@@ -203,9 +222,9 @@
    <widget class="QLabel" name="dropLabel">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>500</x>
       <y>400</y>
-      <width>231</width>
+      <width>241</width>
       <height>41</height>
      </rect>
     </property>
@@ -387,9 +406,225 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="briefingLabel">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>50</y>
+      <width>211</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:black</string>
+    </property>
+    <property name="text">
+     <string>Image briefing:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="selectedImageLabel">
+    <property name="geometry">
+     <rect>
+      <x>1120</x>
+      <y>150</y>
+      <width>74</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IMAGE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nameBriefingLabel">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>240</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Display</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:</string>
+    </property>
+    <property name="text">
+     <string>Name:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="authorBriefingLabel">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>340</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Display</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:</string>
+    </property>
+    <property name="text">
+     <string>Author:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dateBriefingLabel">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>450</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Display</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:</string>
+    </property>
+    <property name="text">
+     <string>Date:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="descriptionBriefingLabel">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>560</y>
+      <width>111</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Display</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:</string>
+    </property>
+    <property name="text">
+     <string>Description:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nameDisplay">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>280</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="authorDisplay">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>390</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dateDisplay">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>500</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="descriptionDisplay">
+    <property name="geometry">
+     <rect>
+      <x>1090</x>
+      <y>620</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>SF Pro Text</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <zorder>dropLabel</zorder>
    <zorder>copyBackground</zorder>
    <zorder>invincibleLabel</zorder>
-   <zorder>dropLabel</zorder>
    <zorder>dropIcon</zorder>
    <zorder>mainLogo</zorder>
    <zorder>addButton</zorder>
@@ -405,6 +640,16 @@
    <zorder>imageView</zorder>
    <zorder>refreshButton</zorder>
    <zorder>fillPromptLabel</zorder>
+   <zorder>briefingLabel</zorder>
+   <zorder>selectedImageLabel</zorder>
+   <zorder>nameBriefingLabel</zorder>
+   <zorder>authorBriefingLabel</zorder>
+   <zorder>dateBriefingLabel</zorder>
+   <zorder>descriptionBriefingLabel</zorder>
+   <zorder>nameDisplay</zorder>
+   <zorder>authorDisplay</zorder>
+   <zorder>dateDisplay</zorder>
+   <zorder>descriptionDisplay</zorder>
   </widget>
  </widget>
  <resources>

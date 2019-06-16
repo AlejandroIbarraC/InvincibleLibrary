@@ -1,6 +1,9 @@
 package tec.ac.cr.mil;
 
+import tec.ac.cr.mil.logic.DatabaseFacade;
+import tec.ac.cr.mil.logic.Picture;
 import tec.ac.cr.mil.logic.Serializer;
+import tec.ac.cr.mil.raid.RaidFacade;
 
 import java.io.IOException;
 
@@ -29,9 +32,6 @@ public class main {
                 File.separator + "apple.jpeg");
         String description = r.getDescription(loadedImg);
         System.out.println(description);*/
-
-
-
     }
 
 }

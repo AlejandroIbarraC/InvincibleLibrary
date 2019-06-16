@@ -22,7 +22,7 @@ Menu::Menu(QWidget *parent) :
     // Initalize default parameters
     ui->setupUi(this);
     setAcceptDrops(true);
-    ui->mainLogo->setGeometry(QRect(450, 100, 200, 200));
+    ui->mainLogo->setGeometry(QRect(525, 100, 200, 200));
     ui->welcomeLabel->setVisible(false);
     ui->copyBackground->setVisible(false);
     ui->dropIcon->setVisible(false);
@@ -59,9 +59,7 @@ Menu::~Menu() {
 }
 
 //! Adds image to grid.
-void Menu::addToGrid(QUrl url) {
-    QImage image(url.path());
-
+void Menu::addToGrid(QImage image, QString name) {
     // Create pixmap and scale it
     QPixmap* pixmap = new QPixmap();
     pixmap->convertFromImage(image);
@@ -72,7 +70,24 @@ void Menu::addToGrid(QUrl url) {
     currentImage->setVisible(true);
     currentImage->setPixmap(pixmap);
     currentImage->setBrush(rPix);
+    currentImage->setName(name);
     gridCount++;
+}
+
+//! Adds image to server
+void Menu::addToServer(QString name, QString author, QString date, QString pictureData) {
+    // Connect to server
+    Connect* connect = Connect::getInstance();
+
+    // Create picture to send
+    Picture* picture = new Picture();
+    picture->setName(name.toStdString());
+    picture->setAuthor(author.toStdString());
+    picture->setYear(date.toInt());
+    picture->setPictureData(pictureData.toStdString());
+
+    // Insert in server
+    connect->insertPicture(picture);
 }
 
 //! Deletes background. Executed by timer when entering app.
@@ -91,6 +106,23 @@ void Menu::deleteBackground() {
     fadeOut->setEndValue(1);
     fadeOut->start(QPropertyAnimation::DeleteWhenStopped);
     ui->imageView->raise();
+}
+
+//! Deletes picture from server
+void Menu::deletePicture(QString name) {
+    // Connect to server
+    Connect* connect = Connect::getInstance();
+
+    // Find picture by name
+    Picture* picture = new Picture();
+    QList<Picture*> pictureList = connect->selectPictures();
+    for (int i = 0; i < pictureList.length(); i++) {
+        Picture* currentPicture = pictureList.at(i);
+        if (QString::fromStdString(currentPicture->getName()) == name) {
+            picture = currentPicture;
+        }
+    }
+    connect->deletePicture(picture);
 }
 
 //! Executes while dragging file to window
@@ -120,8 +152,11 @@ void Menu::dragLeaveEvent(QDragLeaveEvent* e) {
 
 //! Executes when dropping file in window
 void Menu::dropEvent(QDropEvent* e) {
-    QString string = "";
-    if (ui->nameEntry->displayText() != string && ui->authorEntry->displayText() != string && ui->dateEntry->displayText() != string){
+    QString emptyString = "";
+    QString author = ui->authorEntry->displayText();
+    QString date = ui->dateEntry->displayText();
+    QString name = ui->nameEntry->displayText();
+    if (author != emptyString && date != emptyString && name != emptyString){
         if (hasEntered) {
             // Define accepted image types
             QStringList accepted_types;
@@ -131,25 +166,31 @@ void Menu::dropEvent(QDropEvent* e) {
                 QFileInfo info(fileName);
                 if (info.exists()) {
                     if (accepted_types.contains(info.suffix().trimmed(), Qt::CaseInsensitive)) {
-                        addToGrid(url);
+                        QImage image(url.path());
+                        addToGrid(image, name);
+                        QString base64Image = pictureToString(image);
+                        addToServer(name, author, date, base64Image);
+                        ui->fillPromptLabel->setVisible(false);
+                        ui->authorEntry->setText("");
+                        ui->dateEntry->setText("");
+                        ui->nameEntry->setText("");
                     }
                 }
             }
-
-            // Reset drop background elements
-            ui->copyBackground->setVisible(false);
-            ui->dropIcon->setVisible(false);
-            ui->dropLabel->setVisible(false);
-            ui->copyBackground->lower();
-            ui->dropIcon->lower();
-            ui->dropLabel->lower();
         }
-    }else{
-        qDebug() << "No se pudo agregar imagen";
+    } else {
+        ui->fillPromptLabel->setVisible(true);
     }
+    // Reset drop background elements
+    ui->copyBackground->setVisible(false);
+    ui->dropIcon->setVisible(false);
+    ui->dropLabel->setVisible(false);
+    ui->copyBackground->lower();
+    ui->dropIcon->lower();
+    ui->dropLabel->lower();
 }
 
-//! Initializes empty image grid
+//! Initializes invisible empty image grid
 void Menu::initializeGrid() {
     int gridColumns = 12;
     int gridRows = 9;
@@ -163,6 +204,7 @@ void Menu::initializeGrid() {
             image->setRect(x, y, imgDimX, imgDimY);
             image->setBrush(QBrush(Qt::red));
             image->setID(id);
+            image->setVisible(false);
             scene->addItem(image);
             x += 80;
             imageList->append(image);
@@ -182,12 +224,21 @@ Menu* Menu::getInstance() {
 }
 
 void Menu::on_addButton_clicked() {
-    QString string = "";
-    if (ui->nameEntry->displayText() != string && ui->authorEntry->displayText() != string && ui->dateEntry->displayText() != string){
+    QString emptyString = "";
+    QString author = ui->authorEntry->displayText();
+    QString date = ui->dateEntry->displayText();
+    QString name = ui->nameEntry->displayText();
+    if (author != emptyString && date != emptyString && name != emptyString){
         // Selects image and adds it
-        QString fileName = QFileDialog::getOpenFileName(this, tr("Select Image"), "/home/jana", tr("Image Files (*.jpeg *.jpg *.png *.heif *.bmp)"));
-        addToGrid(fileName);
+        QUrl url = QFileDialog::getOpenFileName(this, tr("Select Image"), "/home/jana", tr("Image Files (*.jpeg *.jpg *.png *.heif *.bmp)"));
+        QImage image(url.path());
+        addToGrid(image, name);
+        QString base64Image = pictureToString(image);
+        addToServer(name, author, date, base64Image);
         ui->fillPromptLabel->setVisible(false);
+        ui->authorEntry->setText("");
+        ui->dateEntry->setText("");
+        ui->nameEntry->setText("");
     }  else {
         ui->fillPromptLabel->setVisible(true);
     }
@@ -252,4 +303,31 @@ QPixmap* Menu::stringToPixmap(QString base64Image) {
     pixmap->loadFromData(QByteArray::fromBase64(byteImage));
 
     return pixmap;
+}
+
+//! Updates picture in server
+void Menu::updatePicture(QString name) {
+    // Connect to server
+    Connect* connect = Connect::getInstance();
+
+    // Find picture by name
+    Picture* picture = new Picture();
+    QList<Picture*> pictureList = connect->selectPictures();
+    for (int i = 0; i < pictureList.length(); i++) {
+        Picture* currentPicture = pictureList.at(i);
+        if (QString::fromStdString(currentPicture->getName()) == name) {
+            picture = currentPicture;
+        }
+    }
+
+    // Update data from entries
+    QString updatedName = ui->nameEntry->displayText();
+    QString updatedAuthor = ui->authorEntry->displayText();
+    QString updatedDate = ui->dateEntry->displayText();
+    picture->setName(updatedName.toStdString());
+    picture->setAuthor(updatedAuthor.toStdString());
+    picture->setYear(updatedDate.toInt());
+
+    // Send picture back to server
+    connect->updatePicture(picture);
 }

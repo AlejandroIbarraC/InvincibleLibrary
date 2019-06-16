@@ -9,6 +9,8 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets Multimedia REQUIRED)
 
+add_subdirectory(cpr)
+
 add_executable(MyInvincibleLibrary client/main.cpp client/GUI/menu.cpp client/GUI/menu.h client/GUI/menu.ui client/GUI/assets/resources.qrc client/GUI/elements/buttonhoverwatcher.cpp client/GUI/elements/buttonhoverwatcher.h client/GUI/elements/image.h client/GUI/elements/image.cpp client/logic/Picture.cpp client/logic/Picture.h client/connection/Connect.cpp client/connection/Connect.h)
 
 include_directories(${CPR_INCLUDE_DIRS})

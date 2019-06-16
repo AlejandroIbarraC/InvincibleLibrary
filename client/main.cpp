@@ -1,5 +1,7 @@
 #include <iostream>
 #include "GUI/menu.h"
+#include "logic/Picture.h"
+#include "connection/Connect.h"
 #include <QApplication>
 #include <iostream>
 #include <QTime>
