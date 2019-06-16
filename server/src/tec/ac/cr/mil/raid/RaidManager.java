@@ -14,6 +14,12 @@ public class RaidManager {
     private static int parityPosition = 4;
     private static String diskPath = "C:\\Users\\Kevin Cordero Zúñiga\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\raid\\disks";
 
+    /**
+     * Write the bytes of an image in the disks
+     * @param ImageBytes ByteArray of image´s bytes
+     * @param ImageName Name of the image
+     * @throws IOException In case doesn't exist the directory
+     */
     public static void Write(byte[] ImageBytes, String ImageName) throws IOException {
         checkDisks();
         int length = ImageBytes.length;
@@ -35,6 +41,13 @@ public class RaidManager {
 
     }
 
+    /**
+     * Reads the bytes of an image from the dataBase
+     * @param size Size in bytes of the image
+     * @param Name Name of the image
+     * @return ByteArray of the image
+     * @throws IOException In case doesn't exist the directory
+     */
     public static byte[] Read(int size, String Name) throws IOException {
         checkDisks();
         byte[] FileBytes = new byte[size];
@@ -59,10 +72,13 @@ public class RaidManager {
         return FileBytes;
     }
 
-    public static void Seek() throws IOException {
-        checkDisks();
-    }
-
+    /**
+     * Fill a File with the bytes of a strip and save it in the disk
+     * @param byteFiles ByteArray with bytes of a strip
+     * @param index Identifier of the file
+     * @param fileName Name of the file
+     * @param currentDisk Disk where the file will be saved
+     */
     private static void fillFile(byte[] byteFiles, int index, String fileName, int currentDisk){
         File file = new File(diskPath + "\\d" + currentDisk + "\\" + fileName + index + ".pdf");
         try (FileOutputStream fos = new FileOutputStream(file)) {
@@ -74,6 +90,12 @@ public class RaidManager {
         }
     }
 
+    /**
+     * Calculate the parity file of an image
+     * @param size Size of the byte array
+     * @param fileName Name of the file
+     * @param disk Disk where the file will be saved
+     */
     private static void calcParity(int size, String fileName, int disk){
         File file = new File(diskPath + "\\d" + parityPosition + "\\"  + fileName + "Parity.pdf");
 
@@ -87,6 +109,13 @@ public class RaidManager {
         }
     }
 
+    /**
+     * Makes the addition of the parity.
+     * @param size Size of the byte array
+     * @param fileName Name of the file
+     * @param disk Disk where the file will be saved
+     * @return result of the addition
+     */
     private static byte[] calcByteArrayParity(int size, String fileName, int disk){
         byte[] Response = new byte[size];
         byte[][] BytesMatrix = calcByteMatrix(size, fileName, disk);
@@ -110,6 +139,13 @@ public class RaidManager {
         return Response;
     }
 
+    /**
+     * Unify the strip in a matrix
+     * @param size Size of the byte Array
+     * @param fileName Name of the file
+     * @param disk Disk where the file will be saved
+     * @return Matrix of strip
+     */
     private static byte[][] calcByteMatrix (int size, String fileName, int disk){
         byte[][] Response = new byte[4][size];
         int counter = 0;
@@ -131,7 +167,11 @@ public class RaidManager {
         return Response;
     }
 
-    public static void checkDisks() throws IOException {
+    /**
+     * Checks the state of the disk thanks to security files
+     * @throws IOException In case doesn't exist the directory
+     */
+    private static void checkDisks() throws IOException {
         int currentDisk = 0;
         Path path;
 
@@ -140,13 +180,18 @@ public class RaidManager {
             try {
                 Files.readAllBytes(path);
             } catch (IOException e) {
-                System.out.println("Disk "+currentDisk+"needs Recovery");
+                System.out.println("Disk "+currentDisk+" needs recovery");
                 Recovery(currentDisk);
             }
             currentDisk++;
         }
     }
 
+    /**
+     * Recover the disk with missing data
+     * @param diskToRecover id of the disk with missing data
+     * @throws IOException In case doesn't exist the directory
+     */
     private static void Recovery(int diskToRecover) throws IOException {
         if(diskToRecover == 4){
             recoverParity();
@@ -155,6 +200,11 @@ public class RaidManager {
         }
     }
 
+    /**
+     * Makes the math part of the data restoration
+     * @param diskToRecover id of the disk with missing data
+     * @throws IOException In case doesn't exist the directory
+     */
     private static void recoverDisk(int diskToRecover) throws IOException {
         Path path = Paths.get(diskPath + "\\d" + diskToRecover);
         createSecurityFile(path);
@@ -163,7 +213,7 @@ public class RaidManager {
             int fileSize = image.getSize()/4;
             byte[] parityBytes = loadFile(diskPath+"\\d4\\"+image.getName()+"Parity.pdf");
             byte[] bytesToRecover = new byte[fileSize];
-            byte[][] recoverMatrix = createRecoverMatriz(diskToRecover, image.getName(), image.getSize()/4);
+            byte[][] recoverMatrix = createRecoverMatrix(diskToRecover, image.getName(), image.getSize()/4);
             for(int i=0; i<fileSize; i++){
                 byte ecuation = (byte)(parityBytes[i]-recoverMatrix[0][i]-recoverMatrix[1][i]-recoverMatrix[2][i]);
                 bytesToRecover[i] = ecuation;
@@ -172,7 +222,14 @@ public class RaidManager {
         }
     }
 
-    private static byte[][] createRecoverMatriz(int diskToRecover, String imageName, int fileSize){
+    /**
+     * Unify the strip in a matrix
+     * @param diskToRecover id of the disk with missing data
+     * @param imageName Name of the image that will be recovered
+     * @param fileSize Size of the image that will be recovered
+     * @return Matrix of strips
+     */
+    private static byte[][] createRecoverMatrix(int diskToRecover, String imageName, int fileSize){
         byte[][] Response = new byte[3][fileSize];
         int matrixCounter = 0;
 
@@ -190,6 +247,10 @@ public class RaidManager {
         }
         return Response;
     }
+
+    /**
+     * Recover the parity of the image, in case it lose
+     */
     private static void recoverParity() {
         ArrayList<Picture> Images = Holder.pictureArrayList;
         Path path = Paths.get(diskPath + "\\d4\\");
@@ -199,6 +260,10 @@ public class RaidManager {
         }
     }
 
+    /**
+     * Create Security file, in case it´s miss
+     * @param path Directory where it will be created
+     */
     private static void createSecurityFile(Path path){
         File file = new File(String.valueOf(path) + "\\sec.pdf");
         byte[] bytes = new byte[1];
@@ -210,6 +275,10 @@ public class RaidManager {
         }
     }
 
+    /**
+     * Delete an image from the dataBase
+     * @param imageName Name of image to be deleted
+     */
     public static void deleteImage(String imageName){
         int currentDisk = 0;
         try {
@@ -226,6 +295,12 @@ public class RaidManager {
         }
     }
 
+    /**
+     * Reads all the bytes from a .pdf file
+     * @param stream .pdf File
+     * @return Bytes of the file
+     * @throws IOException IOException In case doesn't exist the directory
+     */
     private static byte[] readFully(InputStream stream) throws IOException
     {
         byte[] buffer = new byte[8192];
@@ -238,6 +313,13 @@ public class RaidManager {
         }
         return baos.toByteArray();
     }
+
+    /**
+     * Loads the bytes of the file to be read
+     * @param sourcePath Path of the file
+     * @return bytes of the file
+     * @throws IOException IOException In case doesn't exist the directory
+     */
     private static byte[] loadFile(String sourcePath) throws IOException
     {
         InputStream inputStream = null;
