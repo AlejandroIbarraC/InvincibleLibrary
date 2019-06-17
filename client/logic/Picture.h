@@ -15,7 +15,7 @@ public:
 
     Picture() = default;
 
-    Picture(string name, string author, int year, string pictureData) {
+    Picture(string name, string author, string year, string pictureData) {
         this->name = name;
         this->author = author;
         this->year = year;
@@ -29,8 +29,8 @@ public:
     void setName(const string &name);
     const string &getAuthor() const;
     void setAuthor(const string &author);
-    int getYear() const;
-    void setYear(int year);
+    string getYear() const;
+    void setYear(string year);
     int getSize() const;
     void setSize(int size);
     const string &getPictureData() const;
@@ -47,7 +47,7 @@ private:
 
     string name;
     string author;
-    int year;
+    string year;
     int size;
     string pictureData;
     int id;

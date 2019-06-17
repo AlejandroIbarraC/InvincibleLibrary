@@ -22,11 +22,11 @@ void Picture::setAuthor(const string &author) {
     Picture::author = author;
 }
 
-int Picture::getYear() const {
+string Picture::getYear() const {
     return year;
 }
 
-void Picture::setYear(int year) {
+void Picture::setYear(string year) {
     Picture::year = year;
 }
 
@@ -66,7 +66,7 @@ string Picture::serialize() {
     QJsonObject jsonObject;
     jsonObject["name"] = QString::fromStdString(name);
     jsonObject["author"] = QString::fromStdString(author);
-    jsonObject["year"] = year;
+    jsonObject["year"] = QString::fromStdString(year);
     jsonObject["pictureData"] = QString::fromStdString(pictureData);
     jsonObject["size"] = size;
     jsonObject["id"] = id;
@@ -81,7 +81,7 @@ string Picture::serialize() {
 void Picture::deserialize(QJsonObject jsonObject) {
     name = (jsonObject["name"].toString().toUtf8().constData());
     author = (jsonObject["author"].toString().toUtf8().constData());
-    year = jsonObject["year"].toInt();
+    year = jsonObject["year"].toString().toUtf8().constData();
     pictureData = (jsonObject["pictureData"].toString().toUtf8().constData());
     size = jsonObject["size"].toInt();
     id = jsonObject["id"].toInt();

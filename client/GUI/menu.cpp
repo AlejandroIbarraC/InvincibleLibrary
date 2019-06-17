@@ -88,7 +88,7 @@ void Menu::addToServer(QString name, QString author, QString date, QString pictu
     Picture* picture = new Picture();
     picture->setName(name.toStdString());
     picture->setAuthor(author.toStdString());
-    picture->setYear(date.toInt());
+    picture->setYear(date.toStdString());
     picture->setPictureData(pictureData.toStdString());
 
     // Insert in server
@@ -376,7 +376,7 @@ void Menu::updatePicture(QString name) {
         // Update data from entries
         picture->setName(updatedName.toStdString());
         picture->setAuthor(updatedAuthor.toStdString());
-        picture->setYear(updatedDate.toInt());
+        picture->setYear(updatedDate.toStdString());
 
         // Send picture back to server
         connect->updatePicture(picture);
@@ -389,16 +389,19 @@ void Menu::updatePicture(QString name) {
 void Menu::setLabels(QString name) {
     Connect* connect = Connect::getInstance();
     QList<Picture*> pictureList = connect->selectPictures();
+    cout << pictureList.at(0)->getName() << endl;
+    cout << pictureList.at(0)->getAuthor() << endl;
+    cout << pictureList.at(0)->getYear() << endl;
+    cout << pictureList.at(0)->getDescription() << endl;
     for (int i = 0; i < pictureList.length(); i++) {
         if (QString::fromStdString(pictureList.at(i)->getName()) == name){
+            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
 
-            ui->nameDisplay->setText(QString::fromStdString(pictureList.at(i)->getName()));
+            ui->nameDisplay->setText(nameString);
 
             ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
 
-            int year = pictureList.at(i)->getYear();
-            QString date = QString::number(year);
-            ui->dateDisplay->setText(date);
+            ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
 
             ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
 

@@ -4,7 +4,7 @@ public class Picture {
 
     public Picture(){}
 
-    public Picture(String name, String author, int year){
+    public Picture(String name, String author, String year){
         this.name = name;
         this.author = author;
         this.year = year;
@@ -16,7 +16,7 @@ public class Picture {
 
     private String name;
     private String author;
-    private int year;
+    private String year;
     private int size;
     private String description;
     private String pictureData;
@@ -38,11 +38,11 @@ public class Picture {
         this.author = author;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
