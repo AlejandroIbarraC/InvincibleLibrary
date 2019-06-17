@@ -557,7 +557,7 @@
      </font>
     </property>
     <property name="text">
-     <string/>
+     <string>s</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -728,13 +728,13 @@
    <zorder>authorBriefingLabel</zorder>
    <zorder>dateBriefingLabel</zorder>
    <zorder>descriptionBriefingLabel</zorder>
-   <zorder>nameDisplay</zorder>
    <zorder>authorDisplay</zorder>
    <zorder>dateDisplay</zorder>
    <zorder>descriptionDisplay</zorder>
    <zorder>editButton</zorder>
    <zorder>trashButton</zorder>
    <zorder>selectPromptLabel</zorder>
+   <zorder>nameDisplay</zorder>
   </widget>
  </widget>
  <resources>

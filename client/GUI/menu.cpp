@@ -227,6 +227,9 @@ QList<Image*>* Menu::getImageList() {
 }
 
 Menu* Menu::getInstance() {
+    if (!menu) {
+        menu = new Menu;
+    }
     return menu;
 }
 
@@ -314,12 +317,6 @@ QString Menu::pictureToString(QImage image) {
     return iconBase64;
 }
 
-//! Raises image to make it bigger.
-void Menu::raiseImage(Image* image) {
-   QPixmap* imgPix = image->getPixmap();
-   QPixmap scaledPix = imgPix->scaled(50, 50);
-}
-
 //! Decodes base64 encoded image to QPixmap
 QPixmap* Menu::stringToPixmap(QString base64Image) {
     // Reads incoming string as QByteArray
@@ -387,25 +384,29 @@ void Menu::updatePicture(QString name) {
 }
 
 void Menu::setLabels(QString name) {
-    Connect* connect = Connect::getInstance();
-    QList<Picture*> pictureList = connect->selectPictures();
-    cout << pictureList.at(0)->getName() << endl;
-    cout << pictureList.at(0)->getAuthor() << endl;
-    cout << pictureList.at(0)->getYear() << endl;
-    cout << pictureList.at(0)->getDescription() << endl;
-    for (int i = 0; i < pictureList.length(); i++) {
-        if (QString::fromStdString(pictureList.at(i)->getName()) == name){
-            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
+//    Connect* connect = Connect::getInstance();
+//    QList<Picture*> pictureList = connect->selectPictures();
+//    cout << pictureList.at(0)->getName() << endl;
+//    cout << pictureList.at(0)->getAuthor() << endl;
+//    cout << pictureList.at(0)->getYear() << endl;
+//    cout << pictureList.at(0)->getDescription() << endl;
+//    for (int i = 0; i < pictureList.length(); i++) {
+//        if (QString::fromStdString(pictureList.at(i)->getName()) == name){
+//            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
 
-            ui->nameDisplay->setText(nameString);
+//            ui->nameDisplay->setText(nameString);
 
-            ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
+//            ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
 
-            ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
+//            ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
 
-            ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
+//            ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
 
-        }
+//        }
 
-    }
+//    }
+    QString namesss = "hola";
+    ui->nameDisplay->setText(namesss);
+    ui->nameDisplay->update();
+    qDebug() << ui->nameDisplay->text();
 }

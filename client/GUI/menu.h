@@ -9,6 +9,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QGraphicsScene>
 #include <QImage>
+#include <QLabel>
 #include <QList>
 #include <QMainWindow>
 #include <QMimeData>
@@ -37,9 +38,7 @@ public:
     ~Menu();
     QList<Image*>* getImageList();
     static Menu* getInstance();
-    void raiseImage(Image* image);
     void setLabels(QString name);
-
 
 protected:
     void dragEnterEvent(QDragEnterEvent *e);
