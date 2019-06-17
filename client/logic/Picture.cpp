@@ -62,6 +62,8 @@ void Picture::setDescription(const string &description) {
     Picture::description = description;
 }
 
+//! Serializes a picture to a json object
+//! \return json with the serialized picture
 string Picture::serialize() {
     QJsonObject jsonObject;
     jsonObject["name"] = QString::fromStdString(name);
@@ -78,6 +80,8 @@ string Picture::serialize() {
     return json;
 }
 
+//! Deserilizes a picture from a json object
+//! \param jsonObject containing the picture to be deserialized
 void Picture::deserialize(QJsonObject jsonObject) {
     name = (jsonObject["name"].toString().toUtf8().constData());
     author = (jsonObject["author"].toString().toUtf8().constData());
