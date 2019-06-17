@@ -20,6 +20,7 @@
 #include <QTimer>
 #include <string>
 
+#include <qapplication.h>
 #include "../connection/Connect.h"
 #include "elements/buttonhoverwatcher.h"
 #include "elements/image.h"

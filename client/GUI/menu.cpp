@@ -174,7 +174,7 @@ void Menu::dropEvent(QDropEvent* e) {
                         QImage image(url.path());
                         addToGrid(image, name);
                         QString base64Image = pictureToString(image);
-                        //addToServer(name, author, date, base64Image);
+                        addToServer(name, author, date, base64Image);
                         ui->fillPromptLabel->setVisible(false);
                         ui->authorEntry->setText("");
                         ui->dateEntry->setText("");
@@ -317,6 +317,31 @@ QString Menu::pictureToString(QImage image) {
     return iconBase64;
 }
 
+//! Sets labels in UI
+void Menu::setLabels(QString name) {
+    Connect* connect = Connect::getInstance();
+    QList<Picture*> pictureList = connect->selectPictures();
+    cout << pictureList.at(0)->getName() << endl;
+    cout << pictureList.at(0)->getAuthor() << endl;
+    cout << pictureList.at(0)->getYear() << endl;
+    cout << pictureList.at(0)->getDescription() << endl;
+    for (int i = 0; i < pictureList.length(); i++) {
+        if (QString::fromStdString(pictureList.at(i)->getName()) == name){
+            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
+
+            ui->nameDisplay->setText(nameString);
+
+            ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
+
+            ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
+
+            ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
+
+        }
+
+    }
+}
+
 //! Decodes base64 encoded image to QPixmap
 QPixmap* Menu::stringToPixmap(QString base64Image) {
     // Reads incoming string as QByteArray
@@ -381,32 +406,4 @@ void Menu::updatePicture(QString name) {
     } else {
         ui->fillPromptLabel->setVisible(true);
     }
-}
-
-void Menu::setLabels(QString name) {
-//    Connect* connect = Connect::getInstance();
-//    QList<Picture*> pictureList = connect->selectPictures();
-//    cout << pictureList.at(0)->getName() << endl;
-//    cout << pictureList.at(0)->getAuthor() << endl;
-//    cout << pictureList.at(0)->getYear() << endl;
-//    cout << pictureList.at(0)->getDescription() << endl;
-//    for (int i = 0; i < pictureList.length(); i++) {
-//        if (QString::fromStdString(pictureList.at(i)->getName()) == name){
-//            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
-
-//            ui->nameDisplay->setText(nameString);
-
-//            ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
-
-//            ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
-
-//            ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
-
-//        }
-
-//    }
-    QString namesss = "hola";
-    ui->nameDisplay->setText(namesss);
-    ui->nameDisplay->update();
-    qDebug() << ui->nameDisplay->text();
 }

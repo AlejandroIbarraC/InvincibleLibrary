@@ -557,7 +557,7 @@
      </font>
     </property>
     <property name="text">
-     <string>s</string>
+     <string/>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

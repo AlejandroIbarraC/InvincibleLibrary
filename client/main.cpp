@@ -10,8 +10,8 @@
 int main(int argc, char *argv[]){
 
     QApplication a(argc, argv);
-    Menu w;
-    w.show();
+    Menu* menu = Menu::getInstance();
+    menu->show();
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
     return a.exec();
