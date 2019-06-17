@@ -12,6 +12,11 @@ import java.io.IOException;
 @Path("insert")
 public class Insert {
 
+    /**
+     * Receives an image that will be added from the client
+     * @param picture that will be added
+     * @throws IOException in case of an error
+     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void addPicture(Picture picture) throws IOException {

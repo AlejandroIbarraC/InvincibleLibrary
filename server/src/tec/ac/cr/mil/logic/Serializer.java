@@ -14,6 +14,9 @@ public class Serializer {
 
     private static String jsonPath = "C:\\Users\\Kevin Cordero Zúñiga\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\logic\\PictureData.json";
 
+    /**
+     * Serializes an arrayList to an .json file
+     */
     public static void serialize(){
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -29,6 +32,9 @@ public class Serializer {
         }
     }
 
+    /**
+     * Deserializes a .json file to an arrayList
+     */
     public static void deserialize() {
         ObjectMapper mapper = new ObjectMapper();
         try{

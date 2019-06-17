@@ -11,6 +11,11 @@ import java.util.ArrayList;
 @Path("select")
 public class Select {
 
+    /**
+     * Gets all the images from the database and sends them to the client
+     * @return an arrayList with all the images from the database
+     * @throws IOException in case of an error
+     */
     @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
