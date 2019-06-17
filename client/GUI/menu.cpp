@@ -321,15 +321,9 @@ QString Menu::pictureToString(QImage image) {
 void Menu::setLabels(QString name) {
     Connect* connect = Connect::getInstance();
     QList<Picture*> pictureList = connect->selectPictures();
-    cout << pictureList.at(0)->getName() << endl;
-    cout << pictureList.at(0)->getAuthor() << endl;
-    cout << pictureList.at(0)->getYear() << endl;
-    cout << pictureList.at(0)->getDescription() << endl;
     for (int i = 0; i < pictureList.length(); i++) {
         if (QString::fromStdString(pictureList.at(i)->getName()) == name){
-            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
-
-            ui->nameDisplay->setText(nameString);
+            ui->nameDisplay->setText(QString::fromStdString(pictureList.at(i)->getName()));
 
             ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
 
