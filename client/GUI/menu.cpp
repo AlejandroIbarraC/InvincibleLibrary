@@ -317,28 +317,27 @@ QString Menu::pictureToString(QImage image) {
     return iconBase64;
 }
 
-//! Sets labels in UI
+//! Sets info briefing labels in UI
 void Menu::setLabels(QString name) {
+    // Retrieve data from server
     Connect* connect = Connect::getInstance();
     QList<Picture*> pictureList = connect->selectPictures();
-    cout << pictureList.at(0)->getName() << endl;
-    cout << pictureList.at(0)->getAuthor() << endl;
-    cout << pictureList.at(0)->getYear() << endl;
-    cout << pictureList.at(0)->getDescription() << endl;
+
+    // Search server data for selected image info
     for (int i = 0; i < pictureList.length(); i++) {
         if (QString::fromStdString(pictureList.at(i)->getName()) == name){
+            // Update image info
             QString nameString = QString::fromStdString(pictureList.at(0)->getName());
-
             ui->nameDisplay->setText(nameString);
-
             ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
-
             ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
-
             ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));
 
+            // Update selected image preview
+            QPixmap* pixmap = stringToPixmap(QString::fromStdString(pictureList.at(i)->getPictureData()));
+            QPixmap rPix = pixmap->scaled(selImgX, selImgY, Qt::KeepAspectRatioByExpanding);
+            ui->selectedImageLabel->setPixmap(rPix);
         }
-
     }
 }
 

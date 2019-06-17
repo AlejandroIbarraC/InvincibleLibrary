@@ -64,6 +64,8 @@ private:
     int imgDimY = 85;
     static Menu* menu;
     QGraphicsScene* scene;
+    int selImgX = 300;
+    int selImgY = 169;
 
     void addToGrid(QImage image, QString name);
     void addToServer(QString name, QString author, QString date, QString pictureData);
