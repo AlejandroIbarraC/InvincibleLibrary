@@ -262,6 +262,7 @@ void Menu::on_editButton_clicked() {
     } else {
         ui->selectPromptLabel->setVisible(true);
     }
+    setLabels(nameToEdit);
 }
 
 void Menu::on_enterButton_clicked() {
@@ -298,11 +299,12 @@ void Menu::on_refreshButton_clicked() {
 void Menu::on_trashButton_clicked() {
     QString nameToDelete = ui->nameDisplay->text();
     if (nameToDelete != "") {
-        updatePicture(nameToDelete);
+        deletePicture(nameToDelete);
         ui->selectPromptLabel->setVisible(false);
     } else {
         ui->selectPromptLabel->setVisible(true);
     }
+    resetLabels();
 }
 
 //! Encodes photo in Base64 QString
@@ -318,6 +320,18 @@ QString Menu::pictureToString(QImage image) {
     return iconBase64;
 }
 
+//! Reset selected labels
+void Menu::resetLabels() {
+    // Update image info
+    ui->nameDisplay->setText(QString(""));
+    ui->authorDisplay->setText(QString(""));
+    ui->dateDisplay->setText(QString(""));
+    ui->descriptionDisplay->setText(QString(""));
+
+    // Update selected image preview
+    ui->selectedImageLabel->setStyleSheet("background-color: white");
+}
+
 //! Sets info briefing labels in UI
 void Menu::setLabels(QString name) {
     // Retrieve data from server
@@ -328,8 +342,7 @@ void Menu::setLabels(QString name) {
     for (int i = 0; i < pictureList.length(); i++) {
         if (QString::fromStdString(pictureList.at(i)->getName()) == name){
             // Update image info
-            QString nameString = QString::fromStdString(pictureList.at(0)->getName());
-            ui->nameDisplay->setText(nameString);
+            ui->nameDisplay->setText(QString::fromStdString(pictureList.at(i)->getName()));
             ui->authorDisplay->setText(QString::fromStdString(pictureList.at(i)->getAuthor()));
             ui->dateDisplay->setText(QString::fromStdString(pictureList.at(i)->getYear()));
             ui->descriptionDisplay->setText(QString::fromStdString(pictureList.at(i)->getDescription()));

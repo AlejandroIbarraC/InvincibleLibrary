@@ -71,6 +71,7 @@ private:
     void addToServer(QString name, QString author, QString date, QString pictureData);
     void deletePicture(QString name);
     void initializeGrid();
+    void resetLabels();
     QString pictureToString(QImage image);
     QPixmap* stringToPixmap(QString base64Image);
     void updateGrid();
