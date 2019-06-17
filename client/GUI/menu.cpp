@@ -259,10 +259,10 @@ void Menu::on_editButton_clicked() {
     if (nameToEdit != "") {
         updatePicture(nameToEdit);
         ui->selectPromptLabel->setVisible(false);
+        on_refreshButton_clicked();
     } else {
         ui->selectPromptLabel->setVisible(true);
     }
-    setLabels(nameToEdit);
 }
 
 void Menu::on_enterButton_clicked() {
@@ -329,7 +329,8 @@ void Menu::resetLabels() {
     ui->descriptionDisplay->setText(QString(""));
 
     // Update selected image preview
-    ui->selectedImageLabel->setStyleSheet("background-color: white");
+    QPixmap pixmap;
+    ui->selectedImageLabel->setPixmap(pixmap);
 }
 
 //! Sets info briefing labels in UI
