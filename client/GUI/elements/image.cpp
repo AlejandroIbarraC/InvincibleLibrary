@@ -2,14 +2,10 @@
 
 #include "../menu.h"
 
-Image::Image(QObject* parent) : QObject (parent) {
+Image::Image(QGraphicsRectItem* parent) : QGraphicsRectItem (parent) {
     // Initialize default attributes
     pixmap = new QPixmap();
     name = "";
-}
-
-QRect Image::geometry() const {
-    return rect;
 }
 
 int Image::getID() {
@@ -30,13 +26,6 @@ void Image::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         menu->setLabels(this->getName());
         this->setBrush(Qt::yellow);
 
-}
-
-void Image::setGeometry(const QRect &value) {
-    if (rect!=value) {
-        rect = value;
-        update();
-    }
 }
 
 void Image::setID(int nID) {

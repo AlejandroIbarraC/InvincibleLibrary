@@ -4,19 +4,14 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
-class Image : public QObject, public QGraphicsRectItem {
-    Q_OBJECT
-    Q_PROPERTY(QRect geometry READ geometry WRITE setGeometry)
+class Image :  public QGraphicsRectItem {
 
 public:
-    Image(QObject* parent = nullptr);
-    QRect rect;
+    Image(QGraphicsRectItem* parent = nullptr);
 
-    QRect geometry() const;
     int getID();
     QString getName();
     QPixmap* getPixmap();
-    void setGeometry(const QRect &value);
     void setID(int nID);
     void setName(QString nName);
     void setPixmap(QPixmap* nPixmap);

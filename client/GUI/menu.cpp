@@ -33,7 +33,7 @@ Menu::Menu(QWidget *parent) :
 
     // Set scene
     scene = new QGraphicsScene(this);
-    scene->setSceneRect(0, 0, 850, 450);
+    scene->setSceneRect(0, 0, 890, 550);
     ui->imageView->setScene(scene);
 
     // Bring initial elements to front
@@ -68,7 +68,7 @@ void Menu::addToGrid(QImage image, QString name) {
     // Create pixmap and scale it
     QPixmap* pixmap = new QPixmap();
     pixmap->convertFromImage(image);
-    QPixmap rPix = pixmap->scaled(imgDimX, imgDimY, Qt::KeepAspectRatio, Qt::TransformationMode::SmoothTransformation);
+    QPixmap rPix = pixmap->scaled(imgDimX, imgDimY, Qt::KeepAspectRatioByExpanding);
 
     // Assign pixmap to image
     Image* currentImage = imageList->at(gridCount);
@@ -197,8 +197,8 @@ void Menu::dropEvent(QDropEvent* e) {
 
 //! Initializes invisible empty image grid
 void Menu::initializeGrid() {
-    int gridColumns = 12;
-    int gridRows = 9;
+    int gridColumns = 5;
+    int gridRows = 5;
     int x = 20;
     int y = 20;
     int id = 0;
@@ -206,18 +206,19 @@ void Menu::initializeGrid() {
     for (int i = 0; i < gridRows; i++) {
         for (int i = 0; i < gridColumns; i++) {
             Image* image = new Image();
-            image->setRect(x, y, imgDimX, imgDimY);
-            image->setBrush(QBrush(Qt::red));
+            image->setRect(0, 0, imgDimX, imgDimY);
+            image->setX(x);
+            image->setY(y);
             image->setID(id);
             image->setVisible(false);
             image->setPen(Qt::NoPen);
             scene->addItem(image);
-            x += 80;
+            x += 160;
             imageList->append(image);
             id++;
         }
         x = 20;
-        y += 60;
+        y += 110;
     }
 }
 

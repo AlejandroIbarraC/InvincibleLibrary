@@ -60,8 +60,8 @@ private:
     bool hasEntered = false;
     int gridCount = 0;
     QList<Image*>* imageList;
-    int imgDimX  = 50;
-    int imgDimY = 50;
+    int imgDimX  = 150;
+    int imgDimY = 85;
     static Menu* menu;
     QGraphicsScene* scene;
 
