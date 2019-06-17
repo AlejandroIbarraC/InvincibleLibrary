@@ -288,6 +288,7 @@ void Menu::on_enterButton_clicked() {
 
     // Initalize image grid
     initializeGrid();
+    on_refreshButton_clicked();
 }
 
 void Menu::on_refreshButton_clicked() {
