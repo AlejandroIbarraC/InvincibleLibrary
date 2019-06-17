@@ -27,10 +27,15 @@ public class ObjectRecognizer {
     private static ObjectRecognizer objectRecognizer = null;
 
     byte[] graphDef;
-    String imagepath;
     List<String> labels;
     String modelpath;
 
+    /**
+     * Calculates probabilities of description using machine learning
+     * @param graphDef byte[] of ML graph
+     * @param image Tensorflow object
+     * @return
+     */
     private static float[] executeInceptionGraph(byte[] graphDef, Tensor image) {
         try (Graph graph = new Graph()) {
             graph.importGraphDef(graphDef);
@@ -51,39 +56,18 @@ public class ObjectRecognizer {
         }
     }
 
-    private static int maxIndex(float[] probabilities) {
-        int best = 0;
-        for (int i = 1; i < probabilities.length; ++i) {
-            if (probabilities[i] > probabilities[best]) {
-                best = i;
-            }
-        }
-        return best;
-    }
-
-    private static byte[] readBytes(Path path) {
-        try {
-            return Files.readAllBytes(path);
-        } catch (IOException e) {
-            System.err.println("Failed to read [" + path + "]: " + e.getMessage());
-            System.exit(1);
-        }
-        return null;
-    }
-
-    private static List<String> readLines(Path path) {
-        try {
-            return Files.readAllLines(path, Charset.forName("UTF-8"));
-        } catch (IOException e) {
-            System.err.println("Failed to read [" + path + "]: " + e.getMessage());
-            System.exit(0);
-        }
-        return null;
-    }
-
+    /**
+     * Gets description of image in byte[] using Machine Learning with Tensorflow API's
+     * @param imageBytes bytep[] of image to analyze
+     * @return String description
+     */
     public String getDescription(byte[] imageBytes) {
         // Define ML model
-        File file = new File("C:\\Users\\Kevin Cordero Zúñiga\\IdeaProjects\\MyInvincibleLibrary\\server\\src\\tec\\ac\\cr\\mil\\ml\\model");
+        File file = new File("." + File.separator + "server" +
+                File.separator + "src" + File.separator + "tec" +
+                File.separator + "ac" + File.separator + "cr" +
+                File.separator + "mil" + File.separator + "ml" +
+                File.separator + "model");
         modelpath = file.getAbsolutePath();
         graphDef = ObjectRecognizer.readBytes(Paths.get(modelpath,"tensorflow_inception_graph.pb"));
         labels = ObjectRecognizer.readLines(Paths.get(modelpath, "imagenet_comp_graph_label_strings.txt"));
@@ -94,6 +78,51 @@ public class ObjectRecognizer {
 
             return labels.get(bestLabelIdx);
         }
+    }
+
+    /**
+     * Gets most likely index out of all probabilities
+     * @param probabilities float[] of all probabilities
+     * @return
+     */
+    private static int maxIndex(float[] probabilities) {
+        int best = 0;
+        for (int i = 1; i < probabilities.length; ++i) {
+            if (probabilities[i] > probabilities[best]) {
+                best = i;
+            }
+        }
+        return best;
+    }
+
+    /**
+     * Reads bytes of ML model
+     * @param path
+     * @return byte[] of model
+     */
+    private static byte[] readBytes(Path path) {
+        try {
+            return Files.readAllBytes(path);
+        } catch (IOException e) {
+            System.err.println("Failed to read [" + path + "]: " + e.getMessage());
+            System.exit(1);
+        }
+        return null;
+    }
+
+    /**
+     * Reads possible options of ML description
+     * @param path
+     * @return List</String> All possible descriptions
+     */
+    private static List<String> readLines(Path path) {
+        try {
+            return Files.readAllLines(path, Charset.forName("UTF-8"));
+        } catch (IOException e) {
+            System.err.println("Failed to read [" + path + "]: " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
     }
 
 }
